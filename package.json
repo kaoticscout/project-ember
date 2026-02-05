@@ -1,0 +1,15 @@
+{
+  "name": "project-ember",
+  "private": true,
+  "scripts": {
+    "dev": "cd ember-toolkit && npm run dev",
+    "build": "cd ember-toolkit && npm run build",
+    "start": "cd ember-toolkit && npm run start",
+    "lint": "cd ember-toolkit && npm run lint"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.1.18"
+  }
+}
