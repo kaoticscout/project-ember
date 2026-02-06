@@ -86,7 +86,7 @@ export const GROUP_EXPEDITION_LEADERBOARD: GroupExpeditionEntry[] = [
   { rank: 7, squadName: "Void Pact", guild: "Void Pact", memberCount: 2, depth: 46, seasonId: CURRENT_SEASON_ID },
   { rank: 8, squadName: "Ember Guard", guild: "Ember Guard", memberCount: 4, depth: 45, seasonId: CURRENT_SEASON_ID },
   { rank: 9, squadName: "Rune Wardens", guild: "Rune Wardens", memberCount: 3, depth: 44, seasonId: CURRENT_SEASON_ID },
-  { rank: 10, squadName: "Stone Circle", guild: "Stone Circle", memberCount: 2, depth: 42, seasonId: CURRENT_SEASON_ID },
+  { rank: 10, squadName: "Stone Circle", guild: "Stone Circle", memberCount: 2, depth: 42, seasonId: CURRENT_SEASON_ID }, 
 ];
 
 /** Example seasonal challenges, each with its own leaderboard */
