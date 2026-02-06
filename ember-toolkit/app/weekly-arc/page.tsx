@@ -30,9 +30,9 @@ const phases: ArcPhase[] = [
     days: "Day 1–2",
     label: "Scouting & First Clears",
     focus:
-      "Establish momentum: routes, early gear, and a stable camp that supports risk runs (not chores).",
+      "Establish momentum: routes, early gear, and a stable camp that supports survival runs (not chores).",
     highlights: [
-      "Fast exploration via mounts; learn chokepoints and extraction lanes",
+      "Fast exploration via mounts; learn chokepoints, safe paths, and camp approaches",
       "Clear Tier 1–2 camps and secure first “build-defining” upgrades",
       "Early rivalries: skirmishes over routes and high-value nodes",
     ],
@@ -51,27 +51,27 @@ const phases: ArcPhase[] = [
     days: "Day 3–4",
     label: "Escalation & Rivalry",
     focus:
-      "The world starts pushing players together: stronger camps, more contested objectives, and meaningful PvP stakes.",
+      "The world starts pushing players together: stronger camps, more contested objectives, and higher PvE stakes.",
     highlights: [
-      "Contested Tier 2+ camps become reliable PvP hotspots",
-      "Siege prep begins: teams chase high-end resources and blueprint paths",
+      "Contested Tier 2+ camps become reliable co-op and optional PvP hotspots",
+      "Groups chase high-end resources and blueprint paths for builds and homesteads",
       "Dungeon-like objectives and elite targets create third-party moments",
     ],
     pressure: [
       "Example modifier: Blood Moon (PvE pressure increases, bases get tested)",
       "More frequent convergence events",
     ],
-    rewards: ["Mid-tier crafting inputs", "Elite drops & catalysts", "Siege components (early)"],
+    rewards: ["Mid-tier crafting inputs", "Elite drops & catalysts", "Early access to biome-specific upgrades"],
     accent: "ember",
   },
   {
     days: "Day 5–6",
     label: "High Threat Windows",
     focus:
-      "Peak danger. Risk runs pay out big, and fights get decisive. These days should generate the best war stories.",
+      "Peak danger. Survival runs pay out big, and fights get decisive. These days should generate the best co-op stories.",
     highlights: [
       "Roaming threats and dangerous events pull squads into the open",
-      "Siege attempts and defenses become the main spectacle",
+      "World bosses and elite POIs become the main spectacle",
       "High-value bosses/POIs force commitments and create betrayals",
     ],
     pressure: [
@@ -138,9 +138,9 @@ const seasonalVariants: SeasonalVariant[] = [
     accent: "gold",
   },
   {
-    title: "Scoring focus shifts",
-    summary: "Change what’s rewarded (not raw power): defense weeks, siege weeks, explorer weeks, etc.",
-    examples: ["Defense score multiplier", "Objective-based siege score", "Route mastery & extraction score"],
+    title: "Focus shifts",
+    summary: "Change what’s spotlighted (not raw power): explorer weeks, survival weeks, boss weeks, etc.",
+    examples: ["Explorer score multiplier", "Objective-based boss score", "Route mastery & endurance score"],
     accent: "ember",
   },
   {
@@ -161,9 +161,9 @@ const weeklyMissions: MissionGroup[] = [
     ],
   },
   {
-    title: "Risk & extraction",
+    title: "Risk & recovery",
     items: [
-      "Complete 1 “risk run”: extract with a high-end resource bundle",
+      "Complete 1 “risk run”: return home with a high-end resource bundle",
       "Recover a tombstone under pressure (clutch recovery credit)",
     ],
   },
@@ -181,13 +181,7 @@ const weeklyMissions: MissionGroup[] = [
       "Score 3 “spotlight actions” (interrupts, clutch defensives, last-second saves)",
     ],
   },
-  {
-    title: "Siege-adjacent (guardrailed)",
-    items: [
-      "Craft one siege component (weekly bounded)",
-      "Participate in one declared defense window (win or lose—objective play counts)",
-    ],
-  },
+  // Optional PvP buckets can be added later, but the core weekly missions are PvE-focused.
 ];
 
 const seasonLongMissions: MissionGroup[] = [
@@ -205,15 +199,15 @@ const seasonLongMissions: MissionGroup[] = [
   {
     title: "Faction story",
     items: [
-      "Successfully defend your base during valid siege windows (X times)",
-      "Pull off one successful heist objective (vault extraction / relic capture)",
+      "Successfully defend your group during a high-threat world event (X times)",
+      "Complete one memorable “all-or-nothing” run (boss kill, caravan, or stronghold) with your squad",
     ],
   },
   {
     title: "Prestige (non-power)",
     items: [
       "Earn spotlight badges: Clutch Defender, Rift Runner, Caravan Breaker, Boss Slayer",
-      "Complete a seasonal “war story” chain (finale + one siege + one elite boss)",
+      "Complete a seasonal “journey” chain (finale + one world boss + one elite dungeon)",
     ],
   },
 ];
@@ -334,10 +328,10 @@ export default function WeeklyArcPage() {
               <div className="relative px-5 py-5">
                 <div className="space-y-3 text-sm text-[color:var(--text-1)]">
                   <div>- Predictable escalation, unpredictable outcomes.</div>
-                  <div>- Clip-worthy moments from PvE, PvP, traversal, and sieges.</div>
+                  <div>- Clip-worthy moments from PvE, optional PvP, traversal, and big events.</div>
                   <div>- Guardrails against grind dominance and 24/7 pressure.</div>
                   <div>- Readable “what’s happening” callouts for viewers and players.</div>
-                  <div>- A finale that provides narrative closure each week.</div>
+                  <div>- A finale that provides narrative closure for the event arc.</div>
                 </div>
               </div>
             </div>

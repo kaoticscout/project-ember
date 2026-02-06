@@ -14,14 +14,13 @@ export function SiegeSpotlight() {
       <div className="relative mx-auto max-w-[1320px] px-4">
         <div className="mx-auto max-w-4xl text-center">
           <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            CORE DIFFERENTIATOR
+            TONE & INSPIRATION
           </div>
           <h2 className="ember-display mt-3 text-balance text-4xl text-[color:var(--text-0)] sm:text-5xl">
-            Siege. Breach. Extract.
+            Survival heroes in a collapsing world.
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-pretty text-base leading-relaxed text-[color:var(--text-1)] sm:text-lg">
-            Spend high-end resources to forge siege weapons, then raid a rival base
-            in a time-bounded assault—hero-first combat, objective-based wins.
+            Cinematic mood for Ember’s world and combat feel: third-person heroes, dangerous biomes, and big co-op moments against overwhelming odds.
           </p>
         </div>
 

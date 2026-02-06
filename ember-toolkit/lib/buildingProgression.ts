@@ -481,14 +481,14 @@ export const TIERS: WorkshopTier[] = [
   },
   {
     tier: 4,
-    title: "Workshop IV — Siege Countermeasures",
+    title: "Workshop IV — Frontier Safeguards",
     summary:
-      "The stronghold graduates into a fortress: advanced doors, anti-siege tech, and high-end production. This is where sieges become stories.",
+      "The stronghold graduates into a fortress-like homestead: advanced doors, warding tech, and high-end production. This is where late-game PvE threats become stories instead of wipes.",
     upgrade: {
       headline: "Upgrade to Workshop IV",
       steps: [
         "Craft a Wardwork Upgrade Kit at Workshop III.",
-        "Install it and hold the area during a siege-like upgrade window.",
+        "Install it and hold the area during an intense upgrade window.",
         "Complete the ritual step (channel/hold points) to lock the upgrade in.",
       ],
       cost: [

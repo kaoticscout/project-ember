@@ -13,14 +13,13 @@ export function GarrisonSpotlight() {
       <div className="relative mx-auto max-w-[1320px] px-4">
         <div className="mx-auto max-w-4xl text-center">
           <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            GARRISON
+            HOMEBASE
           </div>
           <h2 className="ember-display mt-3 text-balance text-4xl text-[color:var(--text-0)] sm:text-5xl">
-            Wall it. Ward it. Sleep on your loot.
+            Build it. Warm it. Live off the land.
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-pretty text-base leading-relaxed text-[color:var(--text-1)] sm:text-lg">
-            Turn a fragile camp into a defended stronghold—so your vault stays yours
-            when the siege horns sound.
+            Turn a fragile camp into a lived-in homestead—crafting hub, comfort buffs, and a place to bring stories and loot back to.
           </p>
         </div>
 

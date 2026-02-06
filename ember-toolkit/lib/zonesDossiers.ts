@@ -24,8 +24,8 @@ export const ZONES: ZoneDossier[] = [
   {
     id: "emberwastes",
     name: "Emberwastes",
-    tagline: "Ash storms, ruined battlements, and siege-grade salvage.",
-    hook: "High-risk harvesting and siege prep: you ride here when you want materials that change fights.",
+    tagline: "Ash storms, ruined battlements, and high-grade salvage.",
+    hook: "High-risk harvesting and frontier prep: you ride here when you want materials that change fights and expeditions.",
     artSrc: "/assets/zone-emberwastes.svg",
     backdropSrc: "/assets/Zones/Emberwastes.png",
     signature: [
@@ -36,19 +36,19 @@ export const ZONES: ZoneDossier[] = [
     harvestables: [
       {
         name: "Cinderstone ore",
-        notes: "Siege plating, breacher heads, heat-resistant upgrades.",
+        notes: "Heavy plating, reinforced tools, heat-resistant upgrades.",
       },
       {
         name: "Ashwood timber",
         notes: "Reinforced doors, gate braces, trap frames.",
       },
-      { name: "Sulfur blooms", notes: "Explosives, smoke charges, siege consumables." },
+      { name: "Sulfur blooms", notes: "Explosives, smoke charges, and high-end PvE consumables." },
       { name: "Glass-sand", notes: "Optics, lenses, arcane focuses, signal gear." },
     ],
     rares: [
       {
         name: "Emberglass shard",
-        notes: "Rare craft component used for high-tier siege modules and prestige cosmetics.",
+        notes: "Rare craft component used for high-tier gear mods and prestige cosmetics.",
       },
       {
         name: "Cinderheart core",
@@ -56,7 +56,7 @@ export const ZONES: ZoneDossier[] = [
       },
       {
         name: "Phoenix resin",
-        notes: "Consumable ingredient: short “burn-proof” window for breach pushes.",
+        notes: "Consumable ingredient: short “burn-proof” window for deep runs in fire-heavy biomes.",
       },
     ],
     strongholds: [
@@ -70,7 +70,7 @@ export const ZONES: ZoneDossier[] = [
       },
       {
         name: "Ashgate Pass",
-        notes: "Chokepoint: caravan lane + siege-friendly terrain.",
+        notes: "Chokepoint: caravan lane and ambush-friendly terrain.",
       },
     ],
     events: [
@@ -80,11 +80,11 @@ export const ZONES: ZoneDossier[] = [
       },
       {
         name: "Salvage Convoy",
-        notes: "Escort/ambush event; defenders get repair mats, attackers get siege parts.",
+        notes: "Escort/ambush event; defenders get repair mats, attackers get rare components.",
       },
       {
         name: "Breach Drill",
-        notes: "Timed objective; complete to earn a “Siege Permit” token (weekly).",
+        notes: "Timed objective; complete to earn a powerful crafting catalyst (weekly).",
       },
     ],
     bosses: [
@@ -133,7 +133,7 @@ export const ZONES: ZoneDossier[] = [
         name: "Ironwood heartwood",
         notes: "High-durability building pieces; trap housings; “quiet door” upgrades.",
       },
-      { name: "Verdant fiber", notes: "Bandages, rope, siege nets, base décor." },
+      { name: "Verdant fiber", notes: "Bandages, rope, nets, base décor." },
       { name: "Sapstone", notes: "Adhesives for repair kits and turret assemblies." },
       {
         name: "Shadowleaf herbs",
@@ -218,8 +218,8 @@ export const ZONES: ZoneDossier[] = [
     ],
     strongholds: [
       { name: "Gloamspire Abbey", notes: "Dungeon-like POI: shrine rooms + puzzle doors; high relic density." },
-      { name: "The Silver Bridge", notes: "Iconic landmark; event lane; prime siege/defense fights." },
-      { name: "Sable Wharf", notes: "River extraction hub; contested when relic events are active." },
+      { name: "The Silver Bridge", notes: "Iconic landmark; event lane; prime defense and ambush fights." },
+      { name: "Sable Wharf", notes: "River trade hub; contested when relic events are active." },
     ],
     events: [
       {
@@ -242,7 +242,7 @@ export const ZONES: ZoneDossier[] = [
         notes: [
           "Hit one shrine cluster + river-ore line",
           "Avoid bridge when event is active unless you want PvP",
-          "Extract at Sable Wharf during lull windows",
+          "Return to Sable Wharf during lull windows to bank safely",
         ],
       },
       {
@@ -268,20 +268,20 @@ export const ZONES: ZoneDossier[] = [
       "Highest density of elite encounters and contested objectives",
     ],
     harvestables: [
-      { name: "Voidstone", notes: "High-tier crafting; siege modules; ritual focuses." },
+      { name: "Voidstone", notes: "High-tier crafting; advanced gear mods; ritual focuses." },
       { name: "Aether thread", notes: "Mobility items, grapples, blink consumables." },
       { name: "Fracture crystal", notes: "Upgrade catalyst; used for legendary-tier rolls." },
       { name: "Nullbloom", notes: "Potions: anti-slow, anti-root, debuff cleanse (rare spawns)." },
     ],
     rares: [
       { name: "Rift key fragment", notes: "Opens sealed stronghold doors and bonus boss arenas." },
-      { name: "Singularity shard", notes: "Ultra-rare: used for pinnacle cosmetics and “mythic” siege tech." },
+      { name: "Singularity shard", notes: "Ultra-rare: used for pinnacle cosmetics and late-game artifacts." },
       { name: "Echo sigil", notes: "Event token: lets you re-run one boss attempt (weekly cap)." },
     ],
     strongholds: [
       { name: "The Riftworks", notes: "Industrial void complex; puzzle gates + elite patrols; best loot, worst exits." },
       { name: "Obsidian Spire", notes: "Vertical stronghold; knockback hazards; high skill expression." },
-      { name: "The Shattered Causeway", notes: "The main lane; most contested fights; siege-friendly terrain." },
+      { name: "The Shattered Causeway", notes: "The main lane; most contested fights; ambush-friendly terrain." },
     ],
     events: [
       { name: "Rift Tide", notes: "World event: safe lanes rotate; nodes spawn in dangerous pockets." },

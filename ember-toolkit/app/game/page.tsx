@@ -1,1073 +1,488 @@
 import Link from "next/link";
-import { Hero } from "@/components/site/Hero";
-import { OrnamentDivider } from "@/components/site/OrnamentDivider";
-import { ZoneCarousel } from "@/components/site/ZoneCarousel";
+import Image from "next/image";
+import { withBasePath } from "@/lib/withBasePath";
+
+type Accent = "ember" | "arcane" | "gold";
+
+type DifferentiatorSpotlight = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  accent: Accent;
+  imageSrc: string;
+  imageAlt: string;
+  videoSrc?: string;
+};
+
+const ACCENT_TO_CSS_VAR: Record<Accent, string> = {
+  ember: "var(--accent-ember)",
+  arcane: "var(--accent-arcane)",
+  gold: "var(--accent-gold)",
+};
+
+const DIFFERENTIATORS: DifferentiatorSpotlight[] = [
+  {
+    id: "vast-world",
+    eyebrow: "Core differentiator",
+    title: "A continent that stays big",
+    subtitle:
+      "Ember's world isn't a theme park loop. You ride for minutes between biomes, peel back fog-of-war one ridge at a time, and chase landmarks you've seen on the horizon since hour one.",
+    description:
+      "Fast travel is earned, not given. The map stays unknown until you've ridden there. Some bosses live at the end of journeys you prepare for all week—multi-region expeditions that preserve a sense of scale even when you're geared.",
+    accent: "gold",
+    imageSrc: "/assets/Zones/Emberwastes.png",
+    imageAlt: "Vast wasteland stretching to the horizon",
+    // videoSrc: "/assets/Videos/exploration.mp4", // Placeholder for future video
+  },
+  {
+    id: "raid-combat",
+    eyebrow: "Core differentiator",
+    title: "Raid-caliber combat, 1–4 players",
+    subtitle:
+      "Build heroes with MMO-style kits—cooldowns, telegraphs, interrupts—and fight bosses that feel like raid encounters even when it's just you and a friend.",
+    description:
+      "Every archetype has solo-viable builds; every boss has mechanics that reward small-squad mastery. World raid bosses are designed to feel like MMO encounters dropped into a survival world: phases, telegraphs, role checks. You can take them on with a small squad—or tackle earlier tiers solo with the right build and preparation.",
+    accent: "arcane",
+    imageSrc: "/assets/Zones/VoidReach.png", // Fallback image
+    imageAlt: "Epic boss encounter with telegraphs and mechanics",
+    videoSrc: "/assets/Events/Boss.mp4",
+  },
+  {
+    id: "survival-stage",
+    eyebrow: "Core differentiator",
+    title: "Survival as stage, not chore",
+    subtitle:
+      "Hunger, weather, and biome rules make leaving the fire feel dangerous—but the point is the journey and the fight, not calorie spreadsheets.",
+    description:
+      "Your homestead and support vehicles exist to let you push deeper, not trap you in upkeep. Survival systems create tension and identity for each region, but mastering a biome is about exploration and combat—not spreadsheet management.",
+    accent: "ember",
+    imageSrc: "/assets/Zones/Ironwood.png",
+    imageAlt: "Homestead nestled in dangerous wilderness",
+  },
+];
+
+function CinematicMediaFrame(props: {
+  label: string;
+  accent: Accent;
+  imageSrc: string;
+  imageAlt: string;
+  videoSrc?: string;
+}) {
+  const accent = ACCENT_TO_CSS_VAR[props.accent];
+  const videoSrc = props.videoSrc ? withBasePath(props.videoSrc) : undefined;
+  const imageSrc = withBasePath(props.imageSrc);
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]">
+      <div className="absolute inset-0">
+        <div className="ember-bg-noise absolute inset-0 opacity-80" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              `radial-gradient(900px 520px at 18% 12%, color-mix(in oklab, ${accent} 18%, transparent), transparent 62%), ` +
+              `linear-gradient(180deg, color-mix(in oklab, var(--bg-0) 38%, transparent) 0%, color-mix(in oklab, var(--bg-0) 84%, transparent) 62%, var(--bg-0) 100%)`,
+          }}
+        />
+      </div>
+
+      <div className="relative pb-[56.25%]">
+        {videoSrc ? (
+          <video
+            className="absolute inset-0 h-full w-full object-cover opacity-95"
+            src={videoSrc}
+            playsInline
+            muted
+            loop
+            autoPlay
+            controls
+            preload="metadata"
+          />
+        ) : (
+          <div className="absolute inset-0">
+            <Image
+              src={imageSrc}
+              alt={props.imageAlt}
+              fill
+              sizes="(min-width: 1024px) 1320px, 100vw"
+              className="object-cover opacity-90"
+              priority={false}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[color:color-mix(in_oklab,var(--bg-0)_60%,transparent)]" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function DifferentiatorSection(props: { differentiator: DifferentiatorSpotlight; flip?: boolean }) {
+  const d = props.differentiator;
+  const accent = ACCENT_TO_CSS_VAR[d.accent];
+  const align = props.flip ? "lg:justify-end" : "lg:justify-start";
+  const textAlign = props.flip ? "lg:text-right" : "";
+  const labelAlign = props.flip ? "lg:justify-end" : "";
+
+  return (
+    <section id={d.id} className="scroll-mt-24">
+      <div className="relative overflow-hidden rounded-3xl border border-[color:color-mix(in_oklab,var(--border-subtle)_70%,transparent)] bg-[color:var(--bg-2)]">
+        <div className="absolute inset-0">
+          <div className="ember-bg-noise absolute inset-0 opacity-70" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                `radial-gradient(900px 520px at 18% 12%, color-mix(in oklab, ${accent} 14%, transparent), transparent 62%), ` +
+                `linear-gradient(180deg, color-mix(in oklab, var(--bg-0) 55%, transparent) 0%, color-mix(in oklab, var(--bg-0) 88%, transparent) 62%, var(--bg-0) 100%)`,
+            }}
+          />
+        </div>
+
+        <div className="relative p-6 sm:p-10">
+          <CinematicMediaFrame
+            label={d.title}
+            accent={d.accent}
+            imageSrc={d.imageSrc}
+            imageAlt={d.imageAlt}
+            videoSrc={d.videoSrc}
+          />
+
+          <div className="mt-8 flex justify-center">
+            <div className="h-px w-full max-w-3xl bg-[color:color-mix(in_oklab,var(--border-subtle)_70%,transparent)]" />
+          </div>
+
+          <div className="mt-8">
+            <div className={`flex ${align}`}>
+              <div className={`w-full max-w-3xl ${textAlign}`}>
+                <div className={`flex flex-wrap items-center gap-2 ${labelAlign}`}>
+                  <span
+                    className="rounded-full border border-[color:color-mix(in_oklab,var(--border-subtle)_75%,transparent)] bg-[color:color-mix(in_oklab,var(--bg-2)_55%,transparent)] px-3 py-1 text-[10px] font-extrabold tracking-[0.28em] text-[color:var(--text-1)]"
+                    style={{
+                      boxShadow: `0 0 0 1px color-mix(in oklab, ${accent} 28%, transparent), 0 0 18px 0 color-mix(in oklab, ${accent} 14%, transparent)`,
+                    }}
+                  >
+                    {d.eyebrow.toUpperCase()}
+                  </span>
+                </div>
+
+                <h2 className="ember-display mt-4 text-balance text-4xl text-[color:var(--text-0)] sm:text-5xl">
+                  {d.title}
+                </h2>
+                <p className="mt-4 text-pretty text-base leading-relaxed text-[color:var(--text-1)] sm:text-lg">
+                  {d.subtitle}
+                </p>
+                <p className="mt-3 text-pretty text-sm leading-relaxed text-[color:var(--text-1)]">
+                  {d.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HeroSpotlight(props: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  imageSrc: string;
+  imageAlt: string;
+  flip?: boolean;
+}) {
+  const align = props.flip ? "lg:justify-end" : "lg:justify-start";
+  const textAlign = props.flip ? "lg:text-right" : "";
+  const labelAlign = props.flip ? "lg:justify-end" : "";
+
+  return (
+    <section>
+      <div className="relative overflow-hidden rounded-3xl border border-[color:color-mix(in_oklab,var(--border-subtle)_70%,transparent)] bg-[color:var(--bg-2)]">
+        <div className="absolute inset-0">
+          <Image
+            src={withBasePath(props.imageSrc)}
+            alt={props.imageAlt}
+            fill
+            sizes="(min-width: 1024px) 1320px, 100vw"
+            className="object-cover"
+            priority={false}
+          />
+          <div className="ember-bg-noise absolute inset-0 opacity-70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--bg-0)_55%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_75%,transparent)] to-[color:var(--bg-0)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(720px_420px_at_20%_30%,color-mix(in_oklab,var(--accent-gold)_16%,transparent),transparent_65%)]" />
+        </div>
+
+        <div className="relative">
+          <div className="mx-auto max-w-[1320px] px-4 py-14 sm:py-20 lg:py-24">
+            <div className={`flex ${align}`}>
+              <div className={`w-full max-w-2xl ${textAlign}`}>
+                <div className={`flex flex-wrap items-center gap-2 ${labelAlign}`}>
+                  <span className="rounded-full border border-[color:color-mix(in_oklab,var(--border-subtle)_75%,transparent)] bg-[color:color-mix(in_oklab,var(--bg-2)_55%,transparent)] px-3 py-1 text-[10px] font-extrabold tracking-[0.28em] text-[color:var(--text-1)]">
+                    {props.eyebrow.toUpperCase()}
+                  </span>
+                </div>
+
+                <h2 className="ember-display mt-4 text-balance text-4xl text-[color:var(--text-0)] sm:text-5xl lg:text-6xl">
+                  {props.title}
+                </h2>
+                <p className="mt-4 text-pretty text-base leading-relaxed text-[color:var(--text-1)] sm:text-lg">
+                  {props.subtitle}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function GamePage() {
   return (
     <div>
-      <Hero
-        eyebrow="The game"
-        title="How Ember plays"
-        subtitle="A survival action RPG built for spotlight moments: loot runs, world bosses, sieges, and last-second defenses."
-        background="world"
-      >
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            disabled
-            aria-disabled="true"
-            className="ember-button-cta inline-flex items-center justify-center rounded-xl px-7 py-4 text-center text-sm font-extrabold tracking-[0.18em] opacity-60 cursor-not-allowed sm:px-8 sm:py-4 sm:text-base"
-          >
-            SIGNUP CLOSED
-          </button>
-          <Link
-            href="/"
-            className="ember-button-secondary rounded-md px-4 py-3 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
-          >
-            ← Home
-          </Link>
-        </div>
-      </Hero>
-
-      <section className="pt-10 pb-4">
-        <div className="mx-auto max-w-[1320px] px-4">
-          <div className="ember-panel">
-            <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-              <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-                THE GAME
-              </div>
-              <div className="ember-display mt-2 text-2xl text-[color:var(--text-0)]">
-                Explore these stubs
-              </div>
-            </div>
-            <div className="relative px-5 py-5">
-              <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-                {[
-                  {
-                    href: "/game/zones",
-                    title: "Zones",
-                    desc: "Biome identity, routes, POIs, and hotspots.",
-                  },
-                  {
-                    href: "/game/siege-vehicles",
-                    title: "Siege vehicles",
-                    desc: "Craft, deploy, and counter siege units.",
-                  },
-                  {
-                    href: "/game/events",
-                    title: "Events",
-                    desc: "Contested moments and weekly cadence.",
-                  },
-                  {
-                    href: "/game/building-progression",
-                    title: "Building progression",
-                    desc: "Tier ladder, defenses, and upgrades.",
-                  },
-                ].map((x) => (
-                  <Link
-                    key={x.href}
-                    href={x.href}
-                    className="group rounded-2xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_65%,transparent)] p-4 hover:border-[color:var(--border-accent)]"
-                  >
-                    <div className="text-xs font-extrabold tracking-[0.22em] text-[color:var(--text-2)]">
-                      {x.title.toUpperCase()}
-                    </div>
-                    <div className="mt-2 text-sm text-[color:var(--text-1)] group-hover:text-[color:var(--text-0)]">
-                      {x.desc}
-                    </div>
-                    <div className="mt-4 text-sm text-[color:var(--accent-gold)] opacity-0 transition-opacity group-hover:opacity-100">
-                      Open →
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <OrnamentDivider className="mt-10 opacity-70" />
-        </div>
-      </section>
-
-      <section className="pt-10 pb-4 ">
+      <section id="what-makes-ember-different" className="scroll-mt-24 pb-16 pt-10 sm:pt-14">
         <div className="mx-auto max-w-[1320px] px-4">
           <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            GAME STYLE
+            WHAT MAKES EMBER DIFFERENT
           </div>
           <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Hero Sieges - World of Warcraft Collides with Rust
+            Three pillars that define the experience
           </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
+            Ember isn't just another survival RPG. These core differentiators shape every system, every biome, and every moment.
+          </p>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                k: "EXPLORATION & MOVEMENT (WoW-inspired)",
-                v: "Mounted travel across a giant continent—routes, biomes, and “ride out” decisions.",
-              },
-              {
-                k: "WORLD & DESTINATIONS (WoW-inspired)",
-                v: "Distinct zones with dungeons, strongholds, boss arenas, and hotspots that pull squads together.",
-              },
-              {
-                k: "BASE (Rust-inspired)",
-                v: "Gather materials, upgrade workbenches, unlock tiers, and fortify a raid-worthy stronghold.",
-              },
-              {
-                k: "COMBAT (V Rising–inspired)",
-                v: "High-tempo action with a few key abilities—less rotation, more aim, timing, and spacing.",
-              },
-              {
-                k: "HEROES (Heroes of the Storm–inspired)",
-                v: "Strong identities and clear roles—each hero feels different to play and to fight against.",
-              },
-              {
-                k: "WEEKLY RESET (Rust-inspired)",
-                v: "A weekly cadence that ramps pressure into raid windows—then resets the board so every week has a fresh climax.",
-              },
-            ].map((x) => (
-              <div
-                key={x.k}
-                className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-0)_35%,transparent)] px-5 py-4"
-              >
-                <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-                  {x.k}
-                </div>
-                <div className="mt-2 text-sm text-[color:var(--text-1)]">{x.v}</div>
-              </div>
+          <div className="mt-10 space-y-8 sm:space-y-10">
+            {DIFFERENTIATORS.map((d, idx) => (
+              <DifferentiatorSection key={d.id} differentiator={d} flip={idx % 2 === 1} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-[1320px] px-4">
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            PRINCIPLES
+      <HeroSpotlight
+        eyebrow="The fantasy"
+        title="Ride into the unknown, come home with a story."
+        subtitle="You wake at the edge of the world with a half‑remembered kit and a broken map. Every night you push the fog back a little further—new biomes, stranger enemies, and raid‑scale threats buried deep in the wilds."
+        imageSrc="/assets/Zones/Emberwastes.png"
+        imageAlt="Hero riding across a stormy wasteland"
+      />
+
+      {/* Build a hero — full-width cinematic + class strip */}
+      <section className="scroll-mt-24 pb-16 pt-10 sm:pt-14">
+        <div className="relative mx-auto max-w-[1320px] px-4">
+          <div className="relative overflow-hidden rounded-3xl border border-[color:color-mix(in_oklab,var(--border-subtle)_70%,transparent)] bg-[color:var(--bg-2)]">
+            <div className="absolute inset-0">
+              <video
+                className="absolute inset-0 h-full w-full object-cover opacity-90"
+                src={withBasePath("/assets/Events/Boss.mp4")}
+                playsInline
+                muted
+                loop
+                autoPlay
+                aria-hidden
+              />
+              <div className="ember-bg-noise absolute inset-0 opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--bg-0)_70%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_50%,transparent)] to-[color:var(--bg-0)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(720px_420px_at_50%_20%,color-mix(in_oklab,var(--accent-arcane)_18%,transparent),transparent_65%)]" />
+            </div>
+
+            <div className="relative py-16 sm:py-20 lg:py-24">
+              <div className="mx-auto max-w-3xl px-4 text-center">
+                <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
+                  HEROES & RAID ENCOUNTERS
+                </div>
+                <h2 className="ember-display mt-3 text-balance text-4xl text-[color:var(--text-0)] sm:text-5xl lg:text-6xl">
+                  Build a hero that can carry a frontier raid.
+                </h2>
+                <p className="mt-5 max-w-2xl mx-auto text-pretty text-base leading-relaxed text-[color:var(--text-1)] sm:text-lg">
+                  Pick an archetype. Grow it from capable adventurer into raid‑caliber hero. Kits are tight and expressive—phases, telegraphs, role checks. Solo or small squad.
+                </p>
+              </div>
+
+              <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto px-4">
+                {[
+                  { name: "Warden", img: "/assets/Classes/warden.jpg" },
+                  { name: "Mystic", img: "/assets/Classes/mystic.jpg" },
+                  { name: "Hunter", img: "/assets/Classes/hunter.jpg" },
+                  { name: "Marshal", img: "/assets/Classes/marshal.jpg" },
+                ].map((c) => (
+                  <div
+                    key={c.name}
+                    className="group relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]"
+                  >
+                    <div className="relative aspect-[3/4]">
+                      <Image
+                        src={withBasePath(c.img)}
+                        alt={c.name}
+                        fill
+                        sizes="(min-width: 640px) 200px, 50vw"
+                        className="object-cover object-top opacity-95 group-hover:opacity-100 transition-opacity"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--bg-0)] via-transparent to-transparent opacity-90" />
+                      <div className="absolute bottom-0 left-0 right-0 px-3 py-2 text-center">
+                        <span className="ember-display text-sm font-semibold text-[color:var(--text-0)] tracking-wide">
+                          {c.name}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Built for moments. Protected from misery.
-          </h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        </div>
+      </section>
+
+      <HeroSpotlight
+        eyebrow="Journey, not teleports"
+        title="Expedition tools, not instant portals."
+        subtitle="Ember gives you ways to go farther—not to skip the world. Mounts, pack wagons, signal towers, and field workshops turn a dangerous continent into something you and your friends can actually cross."
+        imageSrc="/assets/SiegeWeapons/war_wagon.jpg"
+        imageAlt="Expedition vehicles crossing vast terrain"
+        flip={true}
+      />
+
+      <section className="pb-12 pt-10 sm:pb-16">
+        <div className="mx-auto max-w-[1320px] px-4">
+          <div className="grid gap-4 lg:grid-cols-3">
             {[
               {
-                k: "Hero-first gameplay",
-                v: "The default activity is adventuring and combat—not spreadsheets and chores.",
+                k: "Mounts",
+                v: "Fast, responsive travel for crossing huge stretches of land—but you still feel every biome you ride through.",
+                img: "/assets/Zones/Silvershade.png",
               },
               {
-                k: "Time-budget friendly",
-                v: "Big progress in a few sessions/week. More hours = more options, not unstoppable power.",
+                k: "Pack wagons & caravans",
+                v: "Haul more than you should safely carry. Great when you're committing to deep runs and multi‑stop routes.",
+                img: "/assets/SiegeWeapons/war_wagon.jpg",
               },
               {
-                k: "Clarity under chaos",
-                v: "Readable telegraphs, strong silhouettes, and fights that look good in clips.",
-              },
-              {
-                k: "High stakes, not deletion",
-                v: "Wins matter. Losses sting. Your identity isn’t erased every time you log off.",
-              },
-              {
-                k: "Anti-grief guardrails",
-                v: "Sieges are structured: objectives, counterplay, and rules that keep it fair.",
-              },
-              {
-                k: "Risk creates stories",
-                v: "Extraction, contested hotspots, and bosses pull players into the same moment.",
+                k: "Field workshops & signal towers",
+                v: "Mobile rest / resupply points and vantage perches that turn the wilds into a network of risky forward bases.",
+                img: "/assets/SiegeWeapons/catapult.jpg",
               },
             ].map((x) => (
-              <div key={x.k} className="ember-panel">
+              <div key={x.k} className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]">
+                <div className="absolute inset-0">
+                  <Image
+                    src={withBasePath(x.img)}
+                    alt={x.k}
+                    fill
+                    sizes="(min-width: 1024px) 400px, 100vw"
+                    className="object-cover opacity-40"
+                    priority={false}
+                  />
+                  <div className="ember-bg-noise absolute inset-0 opacity-50" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[color:color-mix(in_oklab,var(--bg-0)_85%,transparent)]" />
+                </div>
                 <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
                   <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
                     {x.k}
                   </div>
                 </div>
-                <div className="relative px-5 py-5">
-                  <div className="text-sm text-[color:var(--text-1)]">{x.v}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pt-10 pb-10 sm:pb-14">
-        <div className="mx-auto max-w-[1320px] px-4">
-          <div className="grid gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-                CORE LOOP
-              </div>
-              <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-                Loot. Level. Siege. Become a legend.
-              </h2>
-              <p className="mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-                Pick an objective, ride out fast, win a fight, and extract with what
-                you earned. Your base is where you bank loot and prep power—then you
-                spend that power to take bigger risks.
-              </p>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    What you’re doing every session
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    High signal. No fluff.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <ol className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    {[
-                      "Choose a target (boss, hotspot, rival base).",
-                      "Ride out. Fight fast. Make a play.",
-                        "Loot and extract with what matters — or harvest materials.",
-                        "Level up and gear your hero. Stock consumables.",
-                      "Fortify your garrison… or launch a siege.",
-                    ].map((x, i) => (
-                      <li
-                        key={x}
-                        className="flex items-start gap-3 rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3"
-                      >
-                        <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-2)_70%,transparent)] text-xs font-semibold text-[color:var(--text-0)]">
-                          {i + 1}
-                        </span>
-                        <span>{x}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <OrnamentDivider className="mt-10 opacity-70" />
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden py-12 sm:py-16">
-        <div className="absolute inset-0">
-          <div className="ember-bg-noise absolute inset-0" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--accent-arcane)_12%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_86%,transparent)] to-[color:var(--bg-0)]" />
-        </div>
-
-        <div className="relative mx-auto max-w-[1320px] px-4">
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            TARGETS
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Leave the walls. Pick a target. Extract with proof.
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Your base is safety. Everything valuable is outside. The game is choosing the right
-            target for your risk appetite—then surviving the run home.
-          </p>
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    The run loop
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Out and back. Every time.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <ol className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    {[
-                      "Bank what you can. Bring what you need.",
-                      "Pick a target and ride out fast.",
-                      "Win the fight (or disengage).",
-                      "Grab the reward.",
-                      "Extract before the third party arrives.",
-                    ].map((x, i) => (
-                      <li key={x} className="flex items-start gap-3">
-                        <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-2)_70%,transparent)] text-xs font-semibold text-[color:var(--text-0)]">
-                          {i + 1}
-                        </span>
-                        <span>{x}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-8">
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  {
-                    k: "Rifts (dynamic events)",
-                    v: "Timed spawns that pull squads into the same moment. Clear waves, close the tear, cash out—then fight the third party.",
-                  },
-                  {
-                    k: "Dungeons",
-                    v: "Short, repeatable runs with boss mechanics, build checks, and high-end crafting drops.",
-                  },
-                  {
-                    k: "Strongholds",
-                    v: "Fortified PvE outposts: choke points, traps, elites. Crack it clean or get stalled long enough to be contested.",
-                  },
-                  {
-                    k: "Sieges (PvP raids)",
-                    v: "Spend high-end resources to build siege weaponry and assault a rival base. Objective-based wins. Big stakes.",
-                  },
-                  {
-                    k: "Contested hotspots",
-                    v: "Elite POIs, roaming events, and resource choke points that reliably generate fights and stories.",
-                  },
-                ].map((x) => (
-                  <div key={x.k} className="ember-panel">
-                    <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                      <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                        {x.k}
-                      </div>
-                    </div>
-                    <div className="relative px-5 py-5">
-                      <div className="text-sm text-[color:var(--text-1)]">{x.v}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <OrnamentDivider className="mt-12 opacity-70" />
-
-          <div className="mt-12 text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            HIGH VALUE TARGETS
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Band Together and Prove Your Strength
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            World Raid Bosses are weekly end-game targets: you rally with other players to take down a raid-scale monster.
-            During the encounter it’s pure cooperation—no PvP—and every player earns their own rewards.
-          </p>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    Why they matter in the weekly arc
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    A mid/late-week focal point with shard-wide gravity.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Scheduled pressure</span>: predictable windows that create convergence.
-                    </li>
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Mechanic checks</span>: telegraphs, role coordination, and execution.
-                    </li>
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Loot injection</span>: high-end crafting components that fuel sieges and builds.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="grid gap-4">
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      Rules of engagement
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Co-op clarity.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Non‑PvP encounter</span>: you’re here to fight the boss together.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Personal loot</span>: every player gets their own drop.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Big telegraphs</span>: readable, cinematic mechanics.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      The real test
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Kill it… then get home.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <div className="text-sm text-[color:var(--text-1)]">
-                      The boss is co-op. The world isn’t. The win is extracting with the reward and turning it into power.
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden py-12 sm:py-16">
-        <div className="absolute inset-0">
-          <div className="ember-bg-noise absolute inset-0" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--accent-gold)_10%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_88%,transparent)] to-[color:var(--bg-0)]" />
-        </div>
-
-        <div className="relative mx-auto max-w-[1320px] px-4">
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            LEVELING
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Pick a hero. Level up. Build your kit.
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            You choose a hero archetype to adventure with—your role, your strengths, your playstyle.
-            Then you earn experience by taking targets, extracting, and winning high-stakes moments.
-          </p>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    How you earn XP
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Adventure-first. Always tied to targets.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <div className="grid gap-3 text-sm text-[color:var(--text-1)] sm:grid-cols-2">
-                    {[
-                      "Rift clears and dynamic events",
-                      "Dungeon and stronghold completions",
-                      "World raid boss kills",
-                      "Successful extractions",
-                      "Winning sieges / repelling sieges",
-                      "Objective holds in hotspots",
-                    ].map((x) => (
-                      <div
-                        key={x}
-                        className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3"
-                      >
-                        {x}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                    Your power comes from doing the hard stuff—not hiding in safety.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    What leveling unlocks
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    More options. More identity.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    <li>Build-defining upgrades (talents/runes/augments).</li>
-                    <li>Better gear and stronger consumables.</li>
-                    <li>More tools for sieges: burst windows, survivability, mobility.</li>
-                    <li>Clear hero identity: you bring a role to the squad.</li>
-                  </ul>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <Link
-                      href="/classes"
-                      className="ember-button-primary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-0)]"
-                    >
-                      Browse heroes
-                    </Link>
-                    <Link
-                      href="/progression"
-                      className="ember-button-secondary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
-                    >
-                      See progression
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <OrnamentDivider className="my-12 opacity-70" />
-
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            SIEGING
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            What sieging is: spend power to start a war story.
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Sieges are structured PvP raids on player strongholds. You don’t “randomly grief” a base—
-            you commit high-end resources to build siege weaponry, declare an assault, and fight for an objective.
-          </p>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    How a siege works (step-by-step)
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Scout → craft → declare → breach → extract.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <ol className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    {[
-                      "Scout a target base and learn its defenses and angles.",
-                      "Earn high-end resources from bosses, dungeons, and contested objectives.",
-                      "Craft a Siege Kit (declaration + siege modules).",
-                      "Declare the siege (warm-up warning goes out).",
-                      "Assault window: breach, fight, secure the objective.",
-                      "Extract with the prize before the counter-push closes the door.",
-                    ].map((x, i) => (
-                      <li
-                        key={x}
-                        className="flex items-start gap-3 rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3"
-                      >
-                        <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-2)_70%,transparent)] text-xs font-semibold text-[color:var(--text-0)]">
-                          {i + 1}
-                        </span>
-                        <span>{x}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="grid gap-4">
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      Win conditions
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Sting without deletion.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Vault extraction</span>: steal capped value, not everything.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Relic capture</span>: grab and hold, then escape.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Limited sabotage</span>: disable key infrastructure for downtime.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      Fair-play guardrails
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      High stakes, not misery.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Warm-up warning</span> so defenders can respond.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Raid windows</span> to avoid 24/7 pressure.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Counterplay</span>: siege engines can be destroyed; charges can be disarmed.
-                      </li>
-                    </ul>
-                    <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                      The goal is a planned heist with a fair fight—not offline deletion.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <OrnamentDivider className="my-12 opacity-70" />
-
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            GARRISONING
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            The counter to sieging: build a base worth breaking.
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Garrisoning is the defensive game: your walls, turrets, and layout decisions are what
-            let you bank loot with confidence. A good base doesn’t make you invincible—it buys time,
-            forces bad angles, and creates the window for a heroic repel.
-          </p>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <div className="grid gap-4">
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      What “defense” means in Ember
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Time is a resource. You’re buying it.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <div className="grid gap-3 text-sm text-[color:var(--text-1)] sm:grid-cols-2">
-                      {[
-                        "Walls and doors that control entry paths",
-                        "Turrets that punish obvious approaches",
-                        "Traps and alarms that create warning and chaos",
-                        "Wards/detectors to spot infiltrators and sappers",
-                        "Choke points and fallback rooms for layered defense",
-                        "Vault placement that forces commitment to reach",
-                      ].map((x) => (
-                        <div
-                          key={x}
-                          className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3"
-                        >
-                          {x}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                      The goal: delay the breach long enough for defenders to rally and swing the fight.
-                    </div>
-                  </div>
-                </div>
-
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      Workbench progression (Rust-style)
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Materials unlock tiers. Tiers unlock power.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <div className="text-sm text-[color:var(--text-1)]">
-                      Your stronghold isn’t just “more walls”—it’s a tech ladder. As you collect materials and complete
-                      upgrades, your workbench tier rises and expands what you can craft: stronger building parts,
-                      better defenses, smarter traps, and higher-end siege counterplay.
-                    </div>
-                    <ul className="mt-4 grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Tier upgrades</span>: spend gathered + rare mats to unlock new recipes.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Craft gates</span>: the best turrets, walls, and wards require higher tiers.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Base power scaling</span>: progression turns your garrison into a real raid target.
-                      </li>
-                    </ul>
-                    <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                      Gather → upgrade → craft → fortify → survive the raid window.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="grid gap-4">
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      Resource collection
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      How you get materials to build.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Gathering</span>: mine ore, harvest timber, and pick up fibers on your runs.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Salvage</span>: break down spare gear and base parts into components.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Targets</span>: dungeons, strongholds, and bosses drop rare building mats.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Risk routes</span>: contested hotspots yield the best returns—but attract raids.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Trade</span>: swap surplus resources with other players to finish a build fast.
-                      </li>
-                    </ul>
-                    <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                      Your base is made from what you survive bringing home.
-                    </div>
-                  </div>
-                </div>
-
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      Creativity wins defenses
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Your layout is a weapon.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Angle denial</span>: force attackers into crossfire.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Layered rooms</span>: trade space slowly, not all at once.
-                      </li>
-                      <li>
-                        <span className="text-[color:var(--text-0)] font-semibold">Bait vaults</span>: punish overcommit with traps and collapse routes.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="ember-panel">
-                  <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                    <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                      The defensive win
-                    </div>
-                    <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                      Repel the siege.
-                    </div>
-                  </div>
-                  <div className="relative px-5 py-5">
-                    <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                      <li>Spot the breach attempt early.</li>
-                      <li>Focus siege engines and disarm charges.</li>
-                      <li>Stabilize at a fallback line and counter-push.</li>
-                    </ul>
-                    <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                      A good garrison turns a raid into an attacker loss.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden py-12 sm:py-16">
-        <div className="absolute inset-0">
-          <div className="ember-bg-noise absolute inset-0" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--accent-gold)_12%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_86%,transparent)] to-[color:var(--bg-0)]" />
-        </div>
-
-        <div className="relative mx-auto max-w-[1320px] px-4">
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            SEASONS & WEEKLY ARC
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Weekly chapters. Seasonal legacy.
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Ember runs on a cadence: the week ramps pressure and creates a finale,
-            while seasons track long-term prestige and cosmetics. The goal is fresh
-            incentives—without turning the game into a wipe-driven job.
-          </p>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {[
-              {
-                k: "Early week",
-                v: "Scout routes, gear up, and establish a garrison.",
-              },
-              {
-                k: "Mid week",
-                v: "Hotspots converge. Bosses and rivalries escalate.",
-              },
-              {
-                k: "Late week",
-                v: "High-threat windows. Siege declarations. Finale moments.",
-              },
-            ].map((x) => (
-              <div
-                key={x.k}
-                className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-0)_35%,transparent)] px-5 py-4"
-              >
-                <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-                  {x.k.toUpperCase()}
-                </div>
-                <div className="ember-display mt-2 text-xl text-[color:var(--text-0)]">
+                <div className="relative px-5 py-4 text-sm text-[color:var(--text-1)]">
                   {x.v}
                 </div>
               </div>
             ))}
           </div>
-
-          <OrnamentDivider className="my-12 opacity-70" />
-
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            SEASONAL TRIALS
-          </div>
-          <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Build your legacy. Prove you’re the best.
-          </h2>
-          <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Each season introduces a set of ranked challenges designed to surface the best-of-the-best.
-            Climb by winning the hardest moments—sieges, world bosses, extractions, and contested objectives—
-            then earn special, unique rewards that broadcast your rank everywhere you go.
-          </p>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    What trials measure
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Offense. Defense. Execution. Under pressure.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <div className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    {[
-                      "Siege Trials: win assaults and hold defenses (offense + defense both matter).",
-                      "Boss Trials: down world raid bosses during high-threat windows.",
-                      "Extraction Trials: extract with high-value loot under pursuit.",
-                      "Control Trials: hold objectives in contested zones.",
-                      "Finale Trials: finish the week strong—late-week pressure counts.",
-                    ].map((x) => (
-                      <div
-                        key={x}
-                        className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3"
-                      >
-                        {x}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    The promise
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Competitive prestige without pay-to-win.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <div className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    <div className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3">
-                      Trials reward consistency and standout moments—not 24/7 grind.
-                    </div>
-                    <div className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3">
-                      Rewards are cosmetic, prestige, and identity.
-                    </div>
-                    <div className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3">
-                      The week ends. Your legacy doesn’t.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
       <section className="relative overflow-hidden py-12 sm:py-16">
         <div className="absolute inset-0">
+          <Image
+            src={withBasePath("/assets/Zones/VoidReach.png")}
+            alt="Solo and co-op gameplay"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-30"
+            priority={false}
+          />
           <div className="ember-bg-noise absolute inset-0" />
           <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--accent-ember)_10%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_86%,transparent)] to-[color:var(--bg-0)]" />
         </div>
 
         <div className="relative mx-auto max-w-[1320px] px-4">
           <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-            COSMETIC LEGACY
+            SOLO OR TOGETHER
           </div>
           <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Your stuff, your style, your story. Make it your own.
+            Log in alone. Link up later. The world stays meaningful.
           </h2>
           <p className="mt-4 max-w-4xl text-pretty text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Cosmetics are the long game. Every season you chase moments that turn into identity—permanent unlocks that
-            don’t get wiped, don’t get power-crept, and don’t ask you to no-life the game. When the gates open and the
-            raid window hits, your look tells a story: where you’ve been, what you’ve beaten, and who learned to fear you.
+            Ashfall is built to respect both playstyles: you can treat it as a lonely expedition game or as a small‑squad
+            raid sandbox—and move between those modes without feeling like you're in a different game.
           </p>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    Why cosmetics drive replayability
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Power resets. Identity stacks.
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <ul className="grid gap-3 text-sm text-[color:var(--text-1)]">
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Seasonal chase</span>: each season adds new sets, themes, and trophies.
-                    </li>
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Skill-locked</span>: the rarest looks come from the hardest moments.
-                    </li>
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Always relevant</span>: cosmetics don’t get invalidated by new gear tiers.
-                    </li>
-                    <li>
-                      <span className="text-[color:var(--text-0)] font-semibold">Social signal</span>: you can read someone’s story at a glance.
-                    </li>
-                  </ul>
-                  <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                    If it looks expensive, it should have a story.
-                  </div>
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
+            <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]">
+              <div className="absolute inset-0">
+                <Image
+                  src={withBasePath("/assets/Zones/Ironwood.png")}
+                  alt="Solo exploration"
+                  fill
+                  sizes="(min-width: 1024px) 600px, 100vw"
+                  className="object-cover opacity-30"
+                  priority={false}
+                />
+                <div className="ember-bg-noise absolute inset-0 opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[color:color-mix(in_oklab,var(--bg-0)_90%,transparent)]" />
+              </div>
+              <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
+                <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
+                  Solo fantasy
                 </div>
               </div>
+              <div className="relative px-5 py-4 text-sm text-[color:var(--text-1)]">
+                Chart coastlines, test builds, and clear scaled‑down versions of world bosses at your own pace. Your
+                homestead grows with you, and the map you've revealed is there when friends show up.
+              </div>
             </div>
-
-            <div className="lg:col-span-7">
-              <div className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    How you earn them
-                  </div>
-                  <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    Build a legacy through real play.
-                  </div>
+            <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]">
+              <div className="absolute inset-0">
+                <Image
+                  src={withBasePath("/assets/Zones/VoidReach.png")}
+                  alt="Co-op raid"
+                  fill
+                  sizes="(min-width: 1024px) 600px, 100vw"
+                  className="object-cover opacity-30"
+                  priority={false}
+                />
+                <div className="ember-bg-noise absolute inset-0 opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[color:color-mix(in_oklab,var(--bg-0)_90%,transparent)]" />
+              </div>
+              <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
+                <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
+                  Small‑squad raids
                 </div>
-                <div className="relative px-5 py-5">
-                  <div className="grid gap-3 text-sm text-[color:var(--text-1)] sm:grid-cols-2">
-                    {[
-                      "Seasonal Trials ranks + milestones",
-                      "World raid boss trophies + weekly clears",
-                      "Siege offense/defense accomplishments",
-                      "Extraction streaks and high-value turn-ins",
-                      "Zone control and contested hotspot wins",
-                      "Event chains and rare destination completions",
-                    ].map((x) => (
-                      <div
-                        key={x}
-                        className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_55%,transparent)] px-4 py-3"
-                      >
-                        {x}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                    Cosmetics are permanent. The proof is how you got them.
-                  </div>
-                </div>
+              </div>
+              <div className="relative px-5 py-4 text-sm text-[color:var(--text-1)]">
+                Grab 1–3 friends and treat the world like a raid instance you live in: role compositions, planned
+                expeditions, shared homesteads, and world events designed to feel like "that night" stories.
               </div>
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                k: "Base themes",
-                v: "Walls, doors, lighting, banners, vault room skins, siege scars.",
-              },
-              {
-                k: "Hero skins",
-                v: "Armor sets + silhouette-safe variants per archetype and season.",
-              },
-              {
-                k: "Turret & trap skins",
-                v: "Defenses styled to match your base theme—still readable in combat.",
-              },
-              {
-                k: "Siege kit skins",
-                v: "Rams, breachers, charges, and modules with seasonal identity.",
-              },
-              {
-                k: "Mount variations",
-                v: "Mount skins, tack, trails, and prestige trims for parade moments.",
-              },
-              {
-                k: "Ability VFX",
-                v: "Clarity-safe spell effects, trails, auras, and finisher flourishes.",
-              },
-              {
-                k: "Titles & banners",
-                v: "Season tags, boss-slayer titles, siege honors, leaderboard trims.",
-              },
-              {
-                k: "Emotes & victory poses",
-                v: "Post-fight flexes and squad rituals that make clips iconic.",
-              },
-              {
-                k: "Base trophies",
-                v: "Boss heads, relic plinths, siege pennants—displayed in your stronghold.",
-              },
-            ].map((x) => (
-              <div key={x.k} className="ember-panel">
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    {x.k}
-                  </div>
-                </div>
-                <div className="relative px-5 py-5">
-                  <div className="text-sm text-[color:var(--text-1)]">{x.v}</div>
-                </div>
-              </div>
-            ))}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/game/zones"
+              className="ember-button-primary rounded-md px-5 py-3 text-sm font-medium text-[color:var(--text-0)]"
+            >
+              Dive into the game details →
+            </Link>
+            <Link
+              href="/seasons"
+              className="ember-button-secondary rounded-md px-5 py-3 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
+            >
+              See seasons & rewards →
+            </Link>
           </div>
         </div>
       </section>
-
-      <ZoneCarousel
-        preface={{
-          eyebrow: "THE MAP",
-          title: "One continent. Many biomes. Endless destinations.",
-          description:
-            "Ember takes place on a single massive continent split into distinct biomes—each with its own weather, routes, threats, and must-know destinations. Every zone is built around places worth riding toward: strongholds, dungeons, boss lairs, extraction paths, and siege-worthy choke points.",
-          bullets: [
-            "Biome identity: unique hazards, visibility, and traversal.",
-            "Landmarks: memorable POIs that become fight magnets.",
-            "Destinations: dungeons, strongholds, and world-boss arenas.",
-            "Routes: safe paths, fast paths, and risky paths.",
-            "Resource pockets: materials you can build a base from.",
-            "Choke points: places where sieges and ambushes make sense.",
-          ],
-        }}
-      />
     </div>
   );
 }
-

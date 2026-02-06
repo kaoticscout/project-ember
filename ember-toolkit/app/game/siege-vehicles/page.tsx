@@ -16,41 +16,41 @@ type SiegeShowcase = {
 const SHOWCASES: SiegeShowcase[] = [
   {
     id: "ram",
-    eyebrow: "Breach tool",
-    title: "Battering Ram",
-    subtitle: "The loudest way to announce a raid: fast structural pressure, short range, high commitment.",
+    eyebrow: "Heavy hauler",
+    title: "Pack Wagon",
+    subtitle: "A rugged wagon for hauling supplies and trophies between camp and the frontier—high capacity, low speed.",
     imageSrc: "/assets/SiegeWeapons/battering_ram.jpg",
     imageAlt: "A heavy battering ram poised for an assault",
   },
   {
     id: "catapult",
-    eyebrow: "Indirect fire",
-    title: "Catapult",
-    subtitle: "Arc shots over walls to break formations and punish repairs—high value, high visibility.",
+    eyebrow: "Field rig",
+    title: "Field Workshop",
+    subtitle: "A mobile crafting rig: swap builds, refill consumables, and repair gear between deep expeditions.",
     imageSrc: "/assets/SiegeWeapons/catapult.jpg",
     imageAlt: "A catapult ready to launch projectiles",
   },
   {
     id: "cannon",
-    eyebrow: "Precision breach",
-    title: "Cannon",
-    subtitle: "Line-of-sight demolition: fewer shots, bigger consequences. Bring it when you need a clean opening.",
+    eyebrow: "Spotlight perch",
+    title: "Signal Tower",
+    subtitle: "A movable lookout and signal rig: mark threats, coordinate squads, and turn storms into set-piece moments.",
     imageSrc: "/assets/SiegeWeapons/cannon.jpg",
     imageAlt: "A cannon positioned for siege warfare",
   },
   {
     id: "ballista",
-    eyebrow: "Anti‑personnel / anti‑support",
+    eyebrow: "Defensive fixture",
     title: "Ballista",
-    subtitle: "Bolt-through pressure: pick angles, deny windows, and punish anyone who lingers on the wall line.",
+    subtitle: "A crafted emplacement for PvE defenses: hold chokepoints against monsters and protect your homestead.",
     imageSrc: "/assets/SiegeWeapons/ballista.jpg",
     imageAlt: "A ballista siege engine aimed forward",
   },
   {
     id: "tower",
-    eyebrow: "Wall access",
-    title: "Siege Tower",
-    subtitle: "Turn a fortress into a melee map: deliver a squad onto the wall-top and force close-quarters defense.",
+    eyebrow: "Cliff access",
+    title: "Cliff Ladder Tower",
+    subtitle: "Reach otherwise impossible ledges and ruins: open new routes, shortcuts, and risky loot spots.",
     imageSrc: "/assets/SiegeWeapons/siege_tower.jpg",
     imageAlt: "A siege tower approaching defensive walls",
   },
@@ -58,15 +58,15 @@ const SHOWCASES: SiegeShowcase[] = [
     id: "wagon",
     eyebrow: "Mobile platform",
     title: "War Wagon",
-    subtitle: "A moving objective: haul supplies, mount support tools, and keep the raid’s tempo under your control.",
+    subtitle: "A moving objective: haul supplies, mount support tools, and keep your expedition’s tempo under your control.",
     imageSrc: "/assets/SiegeWeapons/war_wagon.jpg",
     imageAlt: "A war wagon used to support siege operations",
   },
   {
     id: "tanks",
-    eyebrow: "Armored assault",
-    title: "Armored Siege Tanks",
-    subtitle: "Pure intimidation and momentum: roll in, soak fire, and create space for your breach team.",
+    eyebrow: "Armored escort",
+    title: "Caravan Tanks",
+    subtitle: "Pure intimidation and momentum: roll in, soak fire, and create space for your caravan or boss push.",
     imageSrc: "/assets/SiegeWeapons/alliance_tank.jpg",
     imageAlt: "A heavy armored tank used in siege warfare",
   },
@@ -104,7 +104,7 @@ function SiegeSpotlight(props: { item: SiegeShowcase; flip?: boolean; priority?:
                     {item.eyebrow.toUpperCase()}
                   </span>
                   <span className="text-xs tracking-[0.22em] text-[color:var(--text-2)]">
-                    SIEGE WEAPON
+                    SUPPORT VEHICLE
                   </span>
                 </div>
 
@@ -128,11 +128,10 @@ export default function SiegeVehiclesPage() {
     <div>
       <Hero
         eyebrow="The game"
-        title="Siege weapons"
-        subtitle="Siege isn’t a checklist of items — it’s a set of capabilities. Each weapon changes how a raid unfolds: where the fight happens, how quickly walls fall, and what defenders must answer."
+        title="Support vehicles"
+        subtitle="Expedition tools for small squads: haulers, field rigs, and mobile perches that let 2–4 players fight like a raid team deep in hostile biomes."
         background="world"
-      >
-      </Hero>
+      ></Hero>
 
       <section className="pb-16 pt-10 sm:pt-14">
         <div className="mx-auto max-w-[1320px] px-4">
@@ -141,11 +140,10 @@ export default function SiegeVehiclesPage() {
               SHOWCASE
             </div>
             <h2 className="ember-display mt-3 text-3xl text-[color:var(--text-0)] sm:text-4xl">
-              Siege capabilities at a glance
+              Expedition capabilities at a glance
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-              Each weapon below is designed to answer a different question: “How do we get in?” “How
-              do we hold space?” “How do we reach the vault room?”
+              Each vehicle below is designed to answer a different co-op question for a small squad: “How do we haul more?”, “Where do we recover and re-kit?”, “How do we hold space during a boss push?”
             </p>
           </div>
 

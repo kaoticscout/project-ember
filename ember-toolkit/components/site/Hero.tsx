@@ -14,6 +14,8 @@ export function Hero(props: {
   showDivider?: boolean;
   align?: "left" | "center";
   vertical?: "top" | "lower";
+  /** When true, section fills available height and content is vertically centered (no scroll). */
+  fillViewport?: boolean;
 }) {
   const isWorld = props.background === "world";
   const bg = isWorld ? "bg-cover bg-center" : "";
@@ -25,10 +27,13 @@ export function Hero(props: {
   // choreograph "gradient → title → black buffer → next section".
   const sectionSizing = "";
 
+  const fillViewport = props.fillViewport === true;
   const padding =
-    props.variant === "home"
-      ? "pt-[400px] pb-[100px]"
-      : "pb-10 pt-10 sm:pb-14 sm:pt-14";
+    fillViewport
+      ? "py-0"
+      : props.variant === "home"
+        ? "pt-[400px] pb-[100px]"
+        : "pb-10 pt-10 sm:pb-14 sm:pt-14";
 
   const titleSize =
     props.titleSize === "brand"
@@ -60,9 +65,14 @@ export function Hero(props: {
       ? "ember-subtitle-home"
       : "";
 
+  const sectionHeight = fillViewport ? "h-full min-h-0" : "";
+  const contentLayout = fillViewport
+    ? "flex min-h-full flex-col justify-center"
+    : contentVertical;
+
   return (
     <section
-      className={`relative overflow-hidden ${bg} ${sectionSizing}`}
+      className={`relative overflow-hidden ${bg} ${sectionSizing} ${sectionHeight}`}
       style={bgStyle}
     >
       <div className="absolute inset-0">
@@ -85,7 +95,7 @@ export function Hero(props: {
       </div>
 
       <div
-        className={`relative mx-auto max-w-[1320px] px-4 ${padding} ${contentVertical}`}
+        className={`relative mx-auto flex max-w-[1320px] px-4 ${padding} ${contentLayout}`}
       >
         <div>
         {props.eyebrow ? (

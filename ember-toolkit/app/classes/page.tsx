@@ -69,7 +69,7 @@ export default function ClassesPage() {
                 Hero archetypes
               </h2>
               <p className="mt-3 max-w-3xl text-sm text-[color:var(--text-1)] sm:text-base">
-                Each archetype is designed to create spotlight moments and shape faction strategy.
+                Each archetype is designed to create spotlight moments and make a 2–4 player squad feel like a raid team: clear roles, synergy, and buildcraft that matter in co-op fights.
               </p>
             </div>
           </div>

@@ -18,7 +18,7 @@ const navItems: NavItem[] = [
     children: [
       { href: "/game/zones", label: "Zones" },
       { href: "/weekly-arc", label: "Weekly arc" },
-      { href: "/game/siege-vehicles", label: "Siege vehicles" },
+      { href: "/game/siege-vehicles", label: "Support vehicles" },
       { href: "/game/events", label: "Events" },
       { href: "/game/building-progression", label: "Building progression" },
     ],

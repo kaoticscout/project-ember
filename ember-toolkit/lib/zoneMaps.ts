@@ -14,11 +14,30 @@ export function isZoneMapId(value: string): value is ZoneMapId {
 
 export type MapMarkerType = "harvest" | "event" | "raidBoss" | "base";
 
+/** Distinct icon kind for events and bosses. Used for map marker icons. */
+export type MarkerKind =
+  | "stronghold"
+  | "poi"
+  | "chokepoint"
+  | "lane"
+  | "storm"
+  | "escort"
+  | "timed"
+  | "hunt"
+  | "harvest"
+  | "ritual"
+  | "worldBoss"
+  | "strongholdBoss";
+
 export type MapMarker = {
   id: string;
   type: MapMarkerType;
   name: string;
   detail?: string;
+  /**
+   * Icon kind for events and raid bosses. Drives which icon is shown on the map.
+   */
+  markerKind?: MarkerKind;
   /**
    * Optional "zone" radius for area highlights (percent of map width).
    * Rendered as a circular region around the marker.
@@ -79,18 +98,18 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       { id: "harvest-ember-glasssand-02", type: "harvest", name: "Glass‑sand Dunes", detail: "Optics mats", x: 38.0, y: 78.0 },
 
       // Strongholds
-      { id: "poi-ember-cinder-bastion", type: "event", name: "Cinder Bastion", detail: "Stronghold • layered walls, ballista nests", areaRadius: 9.5, x: 48.0, y: 55.0 },
-      { id: "poi-ember-meltworks", type: "event", name: "The Meltworks", detail: "Stronghold • dense scrap + elites", areaRadius: 8.0, x: 30.0, y: 64.0 },
-      { id: "poi-ember-ashgate-pass", type: "event", name: "Ashgate Pass", detail: "Chokepoint • caravan lane", areaRadius: 7.5, x: 62.0, y: 28.0 },
+      { id: "poi-ember-cinder-bastion", type: "event", markerKind: "stronghold", name: "Cinder Bastion", detail: "Stronghold • layered walls, ballista nests", areaRadius: 9.5, x: 48.0, y: 55.0 },
+      { id: "poi-ember-meltworks", type: "event", markerKind: "stronghold", name: "The Meltworks", detail: "Stronghold • dense scrap + elites", areaRadius: 8.0, x: 30.0, y: 64.0 },
+      { id: "poi-ember-ashgate-pass", type: "event", markerKind: "chokepoint", name: "Ashgate Pass", detail: "Chokepoint • caravan lane", areaRadius: 7.5, x: 62.0, y: 28.0 },
 
       // Events
-      { id: "event-ember-ash-squall-surge", type: "event", name: "Ash Squall Surge", detail: "Storm window • bonus nodes", areaRadius: 12.0, x: 56.0, y: 44.0 },
-      { id: "event-ember-salvage-convoy", type: "event", name: "Salvage Convoy", detail: "Escort/ambush • siege parts", areaRadius: 10.0, x: 40.0, y: 46.0 },
-      { id: "event-ember-breach-drill", type: "event", name: "Breach Drill", detail: "Timed objective • siege permit", areaRadius: 8.5, x: 68.0, y: 52.0 },
+      { id: "event-ember-ash-squall-surge", type: "event", markerKind: "storm", name: "Ash Squall Surge", detail: "Storm window • bonus nodes", areaRadius: 12.0, x: 56.0, y: 44.0 },
+      { id: "event-ember-salvage-convoy", type: "event", markerKind: "escort", name: "Salvage Convoy", detail: "Escort/ambush • rare components", areaRadius: 10.0, x: 40.0, y: 46.0 },
+      { id: "event-ember-breach-drill", type: "event", markerKind: "timed", name: "Breach Drill", detail: "Timed objective • crafting catalyst", areaRadius: 8.5, x: 68.0, y: 52.0 },
 
       // Bosses
-      { id: "boss-ember-furnace-wyrm", type: "raidBoss", status: "inactive", name: "The Furnace Wyrm", detail: "World boss • collapsing cover", areaRadius: 13.5, x: 74.0, y: 42.0 },
-      { id: "boss-ember-castellan", type: "raidBoss", status: "inactive", name: "Bastion Castellan", detail: "Stronghold boss • shield phases", areaRadius: 10.0, x: 46.0, y: 56.0 },
+      { id: "boss-ember-furnace-wyrm", type: "raidBoss", markerKind: "worldBoss", status: "inactive", name: "The Furnace Wyrm", detail: "World boss • collapsing cover", areaRadius: 13.5, x: 74.0, y: 42.0 },
+      { id: "boss-ember-castellan", type: "raidBoss", markerKind: "strongholdBoss", status: "inactive", name: "Bastion Castellan", detail: "Stronghold boss • shield phases", areaRadius: 10.0, x: 42.0, y: 58.0 },
 
       // Player bases (sample placements)
       {
@@ -158,18 +177,18 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       { id: "harvest-iron-shadowleaf-02", type: "harvest", name: "Shadowleaf Herbs", detail: "Potions", x: 36.0, y: 30.0 },
 
       // Strongholds / POIs
-      { id: "poi-iron-rootgate", type: "event", name: "Rootgate Keep", detail: "Stronghold • vertical fights", areaRadius: 9.0, x: 22.0, y: 52.0 },
-      { id: "poi-iron-hollow-market", type: "event", name: "Hollow Market", detail: "POI • neutral-ish trading hub", areaRadius: 8.0, x: 50.0, y: 60.0 },
-      { id: "poi-iron-old-road", type: "event", name: "The Old Road", detail: "Lane • escorts & intercepts", areaRadius: 10.0, x: 66.0, y: 56.0 },
+      { id: "poi-iron-rootgate", type: "event", markerKind: "stronghold", name: "Rootgate Keep", detail: "Stronghold • vertical fights", areaRadius: 9.0, x: 22.0, y: 52.0 },
+      { id: "poi-iron-hollow-market", type: "event", markerKind: "poi", name: "Hollow Market", detail: "POI • neutral-ish trading hub", areaRadius: 8.0, x: 50.0, y: 60.0 },
+      { id: "poi-iron-old-road", type: "event", markerKind: "lane", name: "The Old Road", detail: "Lane • escorts & intercepts", areaRadius: 10.0, x: 66.0, y: 56.0 },
 
       // Events
-      { id: "event-iron-stag-king", type: "event", name: "Hunt: The Stag‑King", detail: "Trackable roaming elite", areaRadius: 11.0, x: 34.0, y: 64.0 },
-      { id: "event-iron-timberfall", type: "event", name: "Timberfall", detail: "Mass harvesting window", areaRadius: 12.5, x: 62.0, y: 48.0 },
-      { id: "event-iron-wardstone", type: "event", name: "Wardstone Ritual", detail: "Hold circles • claim a zone buff", areaRadius: 9.5, x: 78.0, y: 38.0 },
+      { id: "event-iron-stag-king", type: "event", markerKind: "hunt", name: "Hunt: The Stag‑King", detail: "Trackable roaming elite", areaRadius: 11.0, x: 34.0, y: 64.0 },
+      { id: "event-iron-timberfall", type: "event", markerKind: "harvest", name: "Timberfall", detail: "Mass harvesting window", areaRadius: 12.5, x: 62.0, y: 48.0 },
+      { id: "event-iron-wardstone", type: "event", markerKind: "ritual", name: "Wardstone Ritual", detail: "Hold circles • claim a zone buff", areaRadius: 9.5, x: 78.0, y: 38.0 },
 
       // Bosses
-      { id: "boss-iron-briar-matron", type: "raidBoss", status: "inactive", name: "The Briar Matron", detail: "World boss • root snares + adds", areaRadius: 13.0, x: 84.0, y: 54.0 },
-      { id: "boss-iron-rootgate-warden", type: "raidBoss", status: "inactive", name: "Rootgate Warden", detail: "Stronghold boss • patrol callouts", areaRadius: 10.0, x: 24.0, y: 52.0 },
+      { id: "boss-iron-briar-matron", type: "raidBoss", markerKind: "worldBoss", status: "inactive", name: "The Briar Matron", detail: "World boss • root snares + adds", areaRadius: 13.0, x: 84.0, y: 54.0 },
+      { id: "boss-iron-rootgate-warden", type: "raidBoss", markerKind: "strongholdBoss", status: "inactive", name: "Rootgate Warden", detail: "Stronghold boss • patrol callouts", areaRadius: 10.0, x: 28.0, y: 48.0 },
 
       // Player bases (sample placements)
       {
@@ -225,18 +244,18 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       { id: "harvest-silver-lumen-02", type: "harvest", name: "Lumen Herbs", detail: "Cleanse + clarity", x: 66.0, y: 70.0 },
 
       // Strongholds / POIs
-      { id: "poi-silver-abbey", type: "event", name: "Gloamspire Abbey", detail: "Stronghold • shrine rooms + puzzle doors", areaRadius: 10.5, x: 78.0, y: 34.0 },
-      { id: "poi-silver-bridge", type: "event", name: "The Silver Bridge", detail: "Landmark • prime siege fights", areaRadius: 9.0, x: 56.0, y: 58.0 },
-      { id: "poi-silver-wharf", type: "event", name: "Sable Wharf", detail: "Extraction hub • contested", areaRadius: 8.5, x: 40.0, y: 74.0 },
+      { id: "poi-silver-abbey", type: "event", markerKind: "stronghold", name: "Gloamspire Abbey", detail: "Stronghold • shrine rooms + puzzle doors", areaRadius: 10.5, x: 76.0, y: 32.0 },
+      { id: "poi-silver-bridge", type: "event", markerKind: "poi", name: "The Silver Bridge", detail: "Landmark • prime siege fights", areaRadius: 9.0, x: 56.0, y: 58.0 },
+      { id: "poi-silver-wharf", type: "event", markerKind: "poi", name: "Sable Wharf", detail: "Extraction hub • contested", areaRadius: 8.5, x: 40.0, y: 74.0 },
 
       // Events
-      { id: "event-silver-procession", type: "event", name: "Relic Procession", detail: "Escort • relic shards", areaRadius: 11.0, x: 52.0, y: 60.0 },
-      { id: "event-silver-convergence", type: "event", name: "Moonlit Convergence", detail: "Ritual • rune holds", areaRadius: 12.0, x: 70.0, y: 52.0 },
-      { id: "event-silver-bell-toll", type: "event", name: "Abbey Bell Toll", detail: "Dungeon surge • bonus rooms", areaRadius: 9.0, x: 80.0, y: 36.0 },
+      { id: "event-silver-procession", type: "event", markerKind: "escort", name: "Relic Procession", detail: "Escort • relic shards", areaRadius: 11.0, x: 48.0, y: 64.0 },
+      { id: "event-silver-convergence", type: "event", markerKind: "ritual", name: "Moonlit Convergence", detail: "Ritual • rune holds", areaRadius: 12.0, x: 70.0, y: 52.0 },
+      { id: "event-silver-bell-toll", type: "event", markerKind: "timed", name: "Abbey Bell Toll", detail: "Dungeon surge • bonus rooms", areaRadius: 9.0, x: 82.0, y: 38.0 },
 
       // Bosses
-      { id: "boss-silver-pale-duchess", type: "raidBoss", status: "inactive", name: "The Pale Duchess", detail: "World boss • charm/fear telegraphs", areaRadius: 13.0, x: 26.0, y: 56.0 },
-      { id: "boss-silver-abbot", type: "raidBoss", status: "inactive", name: "Abbot of Gloamspire", detail: "Stronghold boss • phase switches", areaRadius: 10.0, x: 78.0, y: 34.0 },
+      { id: "boss-silver-pale-duchess", type: "raidBoss", markerKind: "worldBoss", status: "inactive", name: "The Pale Duchess", detail: "World boss • charm/fear telegraphs", areaRadius: 13.0, x: 26.0, y: 56.0 },
+      { id: "boss-silver-abbot", type: "raidBoss", markerKind: "strongholdBoss", status: "inactive", name: "Abbot of Gloamspire", detail: "Stronghold boss • phase switches", areaRadius: 10.0, x: 72.0, y: 36.0 },
 
       // Player bases (sample placements)
       {
@@ -276,7 +295,7 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
   voidreach: {
     id: "voidreach",
     name: "Voidreach",
-    imageSrc: "/assets/ZoneMaps/VoidReach.jpg",
+    imageSrc: "/assets/ZoneMaps/VoidReach.png",
     aspect: [3, 2],
     markers: [
       // Harvestables
@@ -288,18 +307,18 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       { id: "harvest-void-nullbloom-01", type: "harvest", name: "Nullbloom", detail: "Rare cleanse mats", x: 78.0, y: 50.0 },
 
       // Strongholds / POIs
-      { id: "poi-void-riftworks", type: "event", name: "The Riftworks", detail: "Stronghold • puzzle gates + elites", areaRadius: 10.5, x: 58.0, y: 38.0 },
-      { id: "poi-void-obsidian-spire", type: "event", name: "Obsidian Spire", detail: "Stronghold • knockback hazards", areaRadius: 10.0, x: 78.0, y: 62.0 },
-      { id: "poi-void-causeway", type: "event", name: "The Shattered Causeway", detail: "Main lane • most contested", areaRadius: 12.0, x: 46.0, y: 58.0 },
+      { id: "poi-void-riftworks", type: "event", markerKind: "stronghold", name: "The Riftworks", detail: "Stronghold • puzzle gates + elites", areaRadius: 10.5, x: 56.0, y: 34.0 },
+      { id: "poi-void-obsidian-spire", type: "event", markerKind: "stronghold", name: "Obsidian Spire", detail: "Stronghold • knockback hazards", areaRadius: 10.0, x: 78.0, y: 62.0 },
+      { id: "poi-void-causeway", type: "event", markerKind: "lane", name: "The Shattered Causeway", detail: "Main lane • most contested", areaRadius: 12.0, x: 46.0, y: 58.0 },
 
       // Events
-      { id: "event-void-rift-tide", type: "event", name: "Rift Tide", detail: "Safe lanes rotate", areaRadius: 14.0, x: 52.0, y: 52.0 },
-      { id: "event-void-echo-storm", type: "event", name: "Echo Storm", detail: "Hold objectives while debuffed", areaRadius: 12.5, x: 70.0, y: 46.0 },
-      { id: "event-void-gate-breach", type: "event", name: "Gate Breach", detail: "Open sealed doors • 20 min", areaRadius: 11.0, x: 60.0, y: 40.0 },
+      { id: "event-void-rift-tide", type: "event", markerKind: "storm", name: "Rift Tide", detail: "Safe lanes rotate", areaRadius: 14.0, x: 50.0, y: 52.0 },
+      { id: "event-void-echo-storm", type: "event", markerKind: "storm", name: "Echo Storm", detail: "Hold objectives while debuffed", areaRadius: 12.5, x: 70.0, y: 46.0 },
+      { id: "event-void-gate-breach", type: "event", markerKind: "timed", name: "Gate Breach", detail: "Open sealed doors • 20 min", areaRadius: 11.0, x: 64.0, y: 44.0 },
 
       // Bosses
-      { id: "boss-void-null-titan", type: "raidBoss", status: "inactive", name: "The Null Titan", detail: "World raid boss • arena hazards + adds", areaRadius: 15.0, x: 62.0, y: 56.0 },
-      { id: "boss-void-spire-architect", type: "raidBoss", status: "inactive", name: "Spire Architect", detail: "Stronghold boss • geometry attacks", areaRadius: 11.0, x: 78.0, y: 62.0 },
+      { id: "boss-void-null-titan", type: "raidBoss", markerKind: "worldBoss", status: "inactive", name: "The Null Titan", detail: "World raid boss • arena hazards + adds", areaRadius: 15.0, x: 62.0, y: 58.0 },
+      { id: "boss-void-spire-architect", type: "raidBoss", markerKind: "strongholdBoss", status: "inactive", name: "Spire Architect", detail: "Stronghold boss • geometry attacks", areaRadius: 11.0, x: 72.0, y: 66.0 },
 
       // Player bases (sample placements)
       {
@@ -462,6 +481,7 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       {
         id: "event-serpentlake-rift",
         type: "event",
+        markerKind: "storm",
         name: "Abyssal Rift",
         detail: "Dynamic event • 10–15 min • rewards: arcane mats",
         areaRadius: 10.0,
@@ -471,6 +491,7 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       {
         id: "event-coilfang-ambush",
         type: "event",
+        markerKind: "escort",
         name: "Coilfang Ambush",
         detail: "Escort interruption • squad-scale",
         areaRadius: 8.0,
@@ -480,6 +501,7 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       {
         id: "event-deadmire-hunt",
         type: "event",
+        markerKind: "hunt",
         name: "Dead Mire Hunt",
         detail: "Roaming elite • drops: trinket shards",
         areaRadius: 9.0,
@@ -491,6 +513,7 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
       {
         id: "raidboss-the-drowned-colossus",
         type: "raidBoss",
+        markerKind: "worldBoss",
         status: "active",
         name: "The Drowned Colossus",
         detail: "RAID BOSS • active now • brings adds + flood zones",
@@ -604,7 +627,77 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
   },
 };
 
-export function getZoneMap(id: ZoneMapId) {
-  return zoneMaps[id];
+/** Simple seeded RNG for deterministic random placement (same zone = same layout). */
+function seededRandom(seed: number): () => number {
+  return () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 2 ** 32;
+  };
+}
+
+function hashString(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = (Math.imul(31, h) + s.charCodeAt(i)) >>> 0;
+  }
+  return h;
+}
+
+// ~100px gap at typical map size (e.g. 800px): 100/800 ≈ 12.5% → use 12% margin
+const HARVEST_EDGE_MARGIN_PCT = 12;
+const HARVEST_X_MIN = HARVEST_EDGE_MARGIN_PCT;
+const HARVEST_X_MAX = 100 - HARVEST_EDGE_MARGIN_PCT;
+const HARVEST_Y_MIN = HARVEST_EDGE_MARGIN_PCT;
+const HARVEST_Y_MAX = 100 - HARVEST_EDGE_MARGIN_PCT;
+
+/** Max distance from map center (50,50) to corner in percent space. */
+const MAX_DIST_FROM_CENTER = Math.sqrt(50 * 50 + 50 * 50);
+
+/**
+ * Keep probability for radial density: 1 at center, falls off toward edges.
+ * normalizedDist 0 = center, 1 = corner. Keep prob = 1 - 0.65 * normalizedDist.
+ */
+function radialKeepProbability(x: number, y: number): number {
+  const dx = x - 50;
+  const dy = y - 50;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const normalizedDist = dist / MAX_DIST_FROM_CENTER;
+  return Math.max(0, 1 - 0.65 * normalizedDist);
+}
+
+/** Expand harvest nodes to 5x with random positions, 12% edge margin, radial density falloff. */
+function expandHarvestMarkers(zoneId: ZoneMapId, markers: MapMarker[]): MapMarker[] {
+  const out: MapMarker[] = [];
+  const copyCount = 4; // original + 4 copies = 5x total
+  for (const m of markers) {
+    if (m.type !== "harvest") {
+      out.push(m);
+      continue;
+    }
+    out.push(m);
+    const seed = hashString(`${zoneId}:${m.id}`);
+    const rng = seededRandom(seed);
+    for (let i = 0; i < copyCount; i++) {
+      const x = HARVEST_X_MIN + rng() * (HARVEST_X_MAX - HARVEST_X_MIN);
+      const y = HARVEST_Y_MIN + rng() * (HARVEST_Y_MAX - HARVEST_Y_MIN);
+      const keepProb = radialKeepProbability(x, y);
+      if (rng() >= keepProb) continue; // fewer nodes toward edges
+      out.push({
+        ...m,
+        id: `${m.id}-r${i + 1}`,
+        x: Math.round(x * 10) / 10,
+        y: Math.round(y * 10) / 10,
+      });
+    }
+  }
+  return out;
+}
+
+export function getZoneMap(id: ZoneMapId): ZoneMap {
+  const zone = zoneMaps[id];
+  return {
+    ...zone,
+    markers: expandHarvestMarkers(id, zone.markers),
+  };
 }
 

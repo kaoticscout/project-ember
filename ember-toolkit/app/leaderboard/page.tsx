@@ -117,7 +117,7 @@ export default function LeaderboardPage() {
                       r: "#1",
                       t: "Cinder Crown",
                       s: "12,480",
-                      note: "Finale extraction to close it.",
+                      note: "Finale boss kill to close it.",
                     },
                     {
                       r: "#2",
@@ -181,13 +181,13 @@ export default function LeaderboardPage() {
                       rank: "#1",
                       name: "VoidKestrel",
                       cls: "Voidmancer",
-                      line: "38 KOs • 6 bosses • 11 extractions",
+                      line: "38 KOs • 6 bosses • 5 clutch recoveries",
                     },
                     {
                       rank: "#2",
                       name: "AshRider",
                       cls: "Hunter",
-                      line: "31 KOs • 9 extractions • 1 chase clip",
+                      line: "31 KOs • 4 clutch recoveries • 1 chase clip",
                     },
                     {
                       rank: "#3",

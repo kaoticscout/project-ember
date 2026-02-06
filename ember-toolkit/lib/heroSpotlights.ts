@@ -263,7 +263,7 @@ const SPOTLIGHTS: Record<string, HeroSpotlight> = {
         name: "Trapline",
         type: "Control",
         cooldown: "20s",
-        summary: "Lay a quick trap to punish pushes or cover an extraction route.",
+        summary: "Lay a quick trap to punish pushes or cover a retreat route.",
         tags: ["Control", "Route"],
       },
       {
@@ -619,7 +619,7 @@ const SPOTLIGHTS: Record<string, HeroSpotlight> = {
         name: "Stun Shot",
         type: "Control",
         cooldown: "18s",
-        summary: "Stop a chaser or cancel a key ability during an extraction.",
+        summary: "Stop a chaser or cancel a key ability during a retreat or rescue.",
         tags: ["Interrupt", "Peel"],
       },
       {

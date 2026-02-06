@@ -44,7 +44,7 @@ export default function BuildingProgressionPage() {
       <Hero
         eyebrow="The game"
         title="Building progression"
-        subtitle="Workshop tiers define what you can unlock. Unlocks cost materials (one-time), then building pieces cost materials per craft."
+        subtitle="Workshop tiers define what your squad can support. Unlocks cost materials (one-time), then building pieces cost materials per craft—and every tier makes 2–4 player expeditions more ambitious."
         background="world"
       >
       </Hero>
@@ -60,9 +60,8 @@ export default function BuildingProgressionPage() {
                 How workshop upgrades work
               </div>
               <div className="mt-2 text-sm text-[color:var(--text-1)]">
-                A workshop upgrade is not just “press a button” — it’s a high-visibility
-                base objective designed to create conflict. Each tier has a one-time
-                upgrade recipe that uses high-end materials.
+                A workshop upgrade is not just “press a button” — it’s a shared squad milestone. Each tier has a one-time
+                upgrade recipe that uses high-end materials and unlocks new ways for a small group to survive, craft, and push deeper together.
               </div>
             </div>
             <div className="relative px-5 py-5">
@@ -73,8 +72,8 @@ export default function BuildingProgressionPage() {
                   </div>
                   <div className="mt-3 space-y-2">
                     <div>- Craft the tier’s Upgrade Kit at your current workshop</div>
-                    <div>- Install at your base (broadcasts / creates a window)</div>
-                    <div>- Defend until completion (attackers can interrupt)</div>
+                    <div>- Install at your base to unlock new recipes and comfort buffs</div>
+                    <div>- Survive higher-threat biomes to keep your homestead supplied</div>
                   </div>
                 </div>
                 <div className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_65%,transparent)] p-4 text-sm text-[color:var(--text-1)]">
@@ -84,7 +83,7 @@ export default function BuildingProgressionPage() {
                   <div className="mt-3 space-y-2">
                     <div>- Upgrades should feel like milestones, not chores</div>
                     <div>- Rare mats ensure upgrades are paced by the world</div>
-                    <div>- Visibility invites sieges, counterplay, and stories</div>
+                    <div>- Stronger workshops support deeper expeditions and richer co-op stories</div>
                   </div>
                 </div>
               </div>

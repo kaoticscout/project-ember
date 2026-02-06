@@ -41,8 +41,7 @@ export default function SeasonsPage() {
             Progress through the quarter
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-[color:var(--text-1)] sm:text-base">
-            Big beats, not chores. Progress comes from spotlight moments, week-arc milestones,
-            and objectives—rewards stay cosmetic and readability-safe.
+            Big beats, not chores. Progress comes from small‑squad spotlight moments—boss kills, elite clears, and clutch survival runs—plus arc milestones and objectives. Rewards stay cosmetic and readability-safe.
           </p>
 
           <div className="relative mt-8 overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_72%,transparent)]">
@@ -147,8 +146,8 @@ export default function SeasonsPage() {
                 Earn your seasonal legacy
               </h2>
               <p className="mt-3 text-sm text-[color:var(--text-1)] sm:text-base">
-                Seasonal rank reflects mastery and consistency across objectives—elite clears,
-                contested events, survival, and PvP (if enabled).
+                Seasonal rank reflects how well your small squad performs across objectives—elite clears,
+                contested events, survival challenges, and optional PvP (if enabled).
               </p>
 
               <div className="mt-8 space-y-2">
@@ -274,7 +273,7 @@ export default function SeasonsPage() {
             Season reward catalog
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-[color:var(--text-1)] sm:text-base">
-            Base skins, hero skins, turret skins, siege unit skins, mount variations, hero effects, and prestige identity.
+            Base skins, hero skins, environmental props, mount variations, hero effects, and prestige identity.
           </p>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-12">
@@ -284,16 +283,16 @@ export default function SeasonsPage() {
                 <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
                   BASE + DEFENSE
                 </div>
-                <div className="ember-display mt-2 text-2xl text-[color:var(--text-0)]">
-                  Fortress expression
+                  <div className="ember-display mt-2 text-2xl text-[color:var(--text-0)]">
+                  Homestead expression
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {[
                     "Walls & doors cosmetics",
-                    "Turret skins + muzzle flashes (safe)",
-                    "Trap skins + placement decals",
+                    "Campfire, hearth, and interior decor sets",
+                    "Trap and ward visuals (clarity-safe)",
                     "Banners, lighting, props",
-                    "Siege unit skins (rams/casters/charges)",
+                    "Outdoor set dressing for homesteads and gathering spots",
                   ].map((x) => (
                     <div
                       key={x}

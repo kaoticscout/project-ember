@@ -72,7 +72,7 @@ export default function MapPage() {
                   <WorldRegion
                     href="/map/emberwastes/"
                     label="Emberwastes"
-                    hint="Ash storms, siege scars"
+                    hint="Ash storms, scorched ruins"
                     className="col-start-1 row-start-2"
                   />
                   <WorldRegion

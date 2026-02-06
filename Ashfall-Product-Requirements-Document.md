@@ -28,8 +28,8 @@ Base building exists, but it is **secondary**: a Valheim-like homestead that sup
    - Valheim-like base building that supports the adventure loop (crafting, comfort, storage, travel) and long-term survival without turning into an RTS/colony economy.
 8. **PvE Survival & Biome Mastery (Core)**
    - Survival systems (hunger, stamina, temperature, weather, biome rules) create tension and identity for each region; mastering a biome is a long-term PvE goal.
-9. **Co-op Exploration & Optional Competitive Structure**
-   - The primary experience is cooperative PvE exploration and progression; optional ladders/events can exist as an overlay but are not framed as required “war” or siege play.
+9. **Solo & Co-op Exploration with Optional Competitive Structure**
+   - The core gameplay must feel great **solo and in co-op**. When players choose to group up, the experience shines as cooperative PvE exploration and progression; optional ladders/events can exist as an overlay but are not framed as required “war” or siege play.
 
 ## 3. Target Player Experience
 - **Session size**: 30–90 minutes “meaningful progress”; 3+ hour marathons optional.
@@ -111,6 +111,7 @@ Systems must avoid “time played = unstoppable power.” Examples of acceptable
 - Start as a capable **hero** (basic kit online immediately).
 - Progress into **specialization** (talents/runes/augments) and gear tiers.
 - Reach **endgame mastery** via elite content, buildcraft, and optional competitive layers.
+- All core lifecycle stages (early progression → specialization → endgame mastery) must be fully achievable **solo**, with co-op acting as an efficiency/variety multiplier rather than a hard requirement.
 
 ### 6.2 Combat & Controls
 - Third-person, **WASD movement**
@@ -139,7 +140,7 @@ Systems must avoid “time played = unstoppable power.” Examples of acceptable
 
 ### 6.7 NPC Camps
 - Escalation gates + PvP hotspots
-- Tiered camps: bandits → fortified → bosses → world events
+- Tiered camps: bandits → fortified → bosses → world events, with difficulty bands that support both solo and small-group play
 
 ### 6.8 Territory / Optional PvP
 - The default product experience is **PvE-focused**:
@@ -194,11 +195,12 @@ Each season must include:
 - objectives should push players into:
   - contested zones / strategic resources
   - PvE camp progression
-  - faction conflict/defense participation
-  - Day 7 final stand participation
+  - faction conflict/defense participation (when playing with others)
+  - finale / event-arc participation
 
 Design constraints:
 - objectives must be completable on the core time budget (3–4 hours, 3 days/week)
+- wherever possible, objectives should have **solo-achievable variants** and **small-squad variants** (same fantasy, scaled demands)
 - objectives should promote spotlight moments, not chores (quality > quantity)
 - avoid “must log in daily” pressure; weekly cadence is primary
 

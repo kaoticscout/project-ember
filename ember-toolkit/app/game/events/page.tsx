@@ -76,8 +76,8 @@ const EVENTS: EventSpotlight[] = [
       "Crack a defended outpost under pressure: elites, chokepoints, and a reward room that’s always worth contesting.",
     bullets: [
       "PvE defense layout that creates real routes and angles",
-      "Clear “breach” moments without full siege tech",
-      "Perfect for small squads looking for a big fight magnet",
+      "Clear “breach” moments without needing complex PvP systems",
+      "Perfect for small squads looking for a big co-op fight magnet",
     ],
     accent: "ember",
     // videoSrc: "/assets/Events/<Stronghold>.mp4",
@@ -87,7 +87,7 @@ const EVENTS: EventSpotlight[] = [
     eyebrow: "Escort / ambush event",
     title: "Caravan Runs",
     subtitle:
-      "A moving objective that forces contact. Protect the haul, survive the ambushes, then extract with the payload.",
+      "A moving objective that forces contact. Protect the haul, survive the ambushes, then make it back to camp with the payload.",
     bullets: [
       "Route-based tension: the map itself becomes the mechanic",
       "Readable attack points for ambushers",
@@ -95,20 +95,6 @@ const EVENTS: EventSpotlight[] = [
     ],
     accent: "gold",
     videoSrc: "/assets/Events/Caravan.mp4",
-  },
-  {
-    id: "siege-windows",
-    eyebrow: "Endgame conflict",
-    title: "Siege Windows",
-    subtitle:
-      "Planned assaults with rules and counterplay. Declare, breach, and fight for an objective—then extract before the counter-push lands.",
-    bullets: [
-      "Warm-up warning so defenders can respond",
-      "Objective wins (not full deletion) to keep it fair",
-      "A weekly climax built for highlight moments",
-    ],
-    accent: "ember",
-    videoSrc: "/assets/Events/Siege.mp4",
   },
 ];
 
