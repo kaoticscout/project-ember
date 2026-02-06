@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { OrnamentDivider } from "@/components/site/OrnamentDivider";
 import { getMarkerDetail, normalizeReward, type RewardRarity } from "@/lib/markerDetails";
 import { ZONE_MAP_IDS, getZoneMap, type ZoneMapId, type MapMarker, type MarkerKind } from "@/lib/zoneMaps";
+import { getShippedDefaults, getShippedMarkerPositions } from "@/lib/zoneMapShippedDefaults";
 
 /** Distinct icon character per marker kind for events and bosses. */
 const MARKER_KIND_ICONS: Record<MarkerKind, string> = {
@@ -87,27 +88,6 @@ type LayerTuningState = {
   base: BaseLayerTuning;
 };
 
-const defaultTuning: LayerTuningState = {
-  harvest: { hue: 145, nodeSize: 1.0, nodeRadius: 1.0, outerEnabled: true },
-  event: {
-    hue: 45,
-    nodeSize: 1.0,
-    nodeRadius: 1.0,
-    outerEnabled: true,
-    zoneRadius: 1.0,
-    areaOpacity: 0.14,
-  },
-  raidBoss: {
-    hue: 0,
-    nodeSize: 1.0,
-    nodeRadius: 1.0,
-    outerEnabled: true,
-    zoneRadius: 1.0,
-    areaOpacity: 0.12,
-  },
-  base: { hue: 38, size: 1.0, radius: 1.0 },
-};
-
 export function ZoneMapCanvas(props: Props) {
   const zone = getZoneMap(props.zoneId);
   const ZONE_SETTINGS_KEY = `ember:zoneMapSettings:v1:${props.zoneId}`;
@@ -121,16 +101,19 @@ export function ZoneMapCanvas(props: Props) {
   const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
   const [lastStorageAction, setLastStorageAction] = useState<string | null>(null);
   const [storageDebugTick, setStorageDebugTick] = useState(0);
-  const [layers, setLayers] = useState<Record<LayerId, boolean>>({
-    harvest: true,
-    event: true,
-    raidBoss: true,
-    base: true,
-  });
+  const [layers, setLayers] = useState<Record<LayerId, boolean>>(() =>
+    getShippedDefaults().layers
+  );
 
-  const [tuning, setTuning] = useState<LayerTuningState>(defaultTuning);
-  const [mapOpacity, setMapOpacity] = useState(0.92);
-  const [mapScale, setMapScale] = useState(1.0);
+  const [tuning, setTuning] = useState<LayerTuningState>(() =>
+    getShippedDefaults().tuning
+  );
+  const [mapOpacity, setMapOpacity] = useState(() =>
+    getShippedDefaults().mapOpacity
+  );
+  const [mapScale, setMapScale] = useState(() =>
+    getShippedDefaults().mapScale
+  );
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const [tooltipAnchor, setTooltipAnchor] = useState<{
@@ -141,7 +124,9 @@ export function ZoneMapCanvas(props: Props) {
     containerH: number;
   } | null>(null);
   const [editMode, setEditMode] = useState(false);
-  const [savedMarkerPositions, setSavedMarkerPositions] = useState<Record<string, { x: number; y: number }>>({});
+  const [savedMarkerPositions, setSavedMarkerPositions] = useState<
+    Record<string, { x: number; y: number }>
+  >(() => getShippedMarkerPositions(props.zoneId));
   const [draggingMarkerId, setDraggingMarkerId] = useState<string | null>(null);
 
   const hasHydratedRef = useRef(false);
@@ -306,17 +291,19 @@ export function ZoneMapCanvas(props: Props) {
     }
   }, [DEFAULT_KEY, ZONE_SETTINGS_KEY, applyStoredState]);
 
-  // Load saved marker positions
+  // Load saved marker positions (localStorage overrides shipped defaults)
   useEffect(() => {
     try {
       const saved = localStorage.getItem(MARKER_POSITIONS_KEY);
       if (saved) {
         setSavedMarkerPositions(JSON.parse(saved));
+      } else {
+        setSavedMarkerPositions(getShippedMarkerPositions(props.zoneId));
       }
     } catch {
       // ignore
     }
-  }, [MARKER_POSITIONS_KEY]);
+  }, [MARKER_POSITIONS_KEY, props.zoneId]);
 
   const saveMarkerPositions = useCallback((positions: Record<string, { x: number; y: number }>) => {
     try {
@@ -403,8 +390,11 @@ export function ZoneMapCanvas(props: Props) {
   const resetToDefaults = () => {
     try {
       const raw = localStorage.getItem(DEFAULT_KEY);
-      if (!raw) return;
-      applyStoredState(JSON.parse(raw) as StoredStateV1);
+      if (raw) {
+        applyStoredState(JSON.parse(raw) as StoredStateV1);
+      } else {
+        applyStoredState(getShippedDefaults());
+      }
     } catch {
       // ignore
     }
@@ -444,8 +434,11 @@ export function ZoneMapCanvas(props: Props) {
   const applyGlobalDefaults = () => {
     try {
       const raw = localStorage.getItem(GLOBAL_DEFAULT_KEY);
-      if (!raw) return;
-      applyStoredState(JSON.parse(raw) as StoredStateV1);
+      if (raw) {
+        applyStoredState(JSON.parse(raw) as StoredStateV1);
+      } else {
+        applyStoredState(getShippedDefaults());
+      }
     } catch {
       // ignore
     }

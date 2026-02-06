@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Cinzel, Inter } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/site/Nav";
-import { ConditionalFooter } from "@/components/site/ConditionalFooter";
 
 const display = Cinzel({
   variable: "--font-display",
@@ -33,7 +32,6 @@ export default function RootLayout({
         <div className="flex h-dvh flex-col overflow-hidden">
           <Nav />
           <main className="min-h-0 flex-1 overflow-auto">{children}</main>
-          <ConditionalFooter />
         </div>
       </body>
     </html>

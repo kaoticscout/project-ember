@@ -295,7 +295,7 @@ export const zoneMaps: Record<ZoneMapId, ZoneMap> = {
   voidreach: {
     id: "voidreach",
     name: "Voidreach",
-    imageSrc: "/assets/ZoneMaps/VoidReach.png",
+    imageSrc: "/assets/ZoneMaps/Voidreach.png",
     aspect: [3, 2],
     markers: [
       // Harvestables
