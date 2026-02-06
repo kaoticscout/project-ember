@@ -15,17 +15,10 @@ const navItems: NavItem[] = [
   {
     href: "/game",
     label: "The Game",
-    children: [
-      { href: "/game/zones", label: "Zones" },
-      { href: "/weekly-arc", label: "Weekly arc" },
-      { href: "/game/siege-vehicles", label: "Support vehicles" },
-      { href: "/game/events", label: "Events" },
-      { href: "/game/building-progression", label: "Building progression" },
-    ],
+    children: [{ href: "/game/classes", label: "Classes" }],
   },
-  { href: "/classes", label: "Classes" },
   { href: "/map", label: "World Map" },
-  { href: "/leaderboard", label: "Leaderboard", note: "WIP" },
+  { href: "/leaderboard", label: "Leaderboard" },
 ];
 
 export function Nav() {

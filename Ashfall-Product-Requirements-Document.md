@@ -2,12 +2,14 @@
 
 Project Codename: **Ashfall**  
 Product Type: **Multiplayer Survival Action RPG (Embodied Third-Person)**  
-Cadence: **Seasonal progression** with optional weekly objectives/events (no RTS “match” framing)
+Cadence: **One-month reset loop** with **meta progression** that carries across resets; rotating content and challenges per month; optional weekly objectives/events within the month (no RTS “match” framing)
 
 ## 1. Vision
 Ashfall is a multiplayer survival **action RPG** where you play a **hero**: you level up, gear up, and take on escalating enemies and bosses with **WoW-inspired combat** (quick movement, hotbar abilities, cooldown windows, readable telegraphs, satisfying AoE). Exploration is fast and fluid thanks to **mounted traversal** and quick dismount-to-fight pacing.
 
 Base building exists, but it is **secondary**: a Valheim-like homestead that supports crafting, storage, comfort buffs, and travel convenience—without turning the primary gameplay loop into an RTS/colony economy.
+
+The game is differentiated by a **one-month reset loop** (push as hard and as far as you can each month; the world or progression layer resets on a fixed cadence), **meta progression** that carries over (long-term talent tree, customizable unlocks earned by how far you pushed), **solo progress with group dominance** (co-op moments and ways to show off loot and progress), **guild halls** as the social glue (meet people, guild leaderboards and quests, building the guild space together), and **scaling expeditions + seasonal leaderboards** (infinitely or deeply scaling runs that rank groups by depth reached—push, rank, reset, repeat).
 
 ## 2. Product Pillars (Non-Negotiables)
 1. **Spotlight Moments**
@@ -31,6 +33,26 @@ Base building exists, but it is **secondary**: a Valheim-like homestead that sup
 9. **Solo & Co-op Exploration with Optional Competitive Structure**
    - The core gameplay must feel great **solo and in co-op**. When players choose to group up, the experience shines as cooperative PvE exploration and progression; optional ladders/events can exist as an overlay but are not framed as required “war” or siege play.
 
+## 2B. Core Differentiators (Design Spine)
+These elements define Ashfall's position in the market and must be reflected in all major systems.
+
+1. **One-Month Reset Loop + Meta Progression**
+   - The world (or the relevant progression layer) resets on a **one-month cycle**. Everyone runs against the same clock; you're racing a known finish line, not grinding into the void. Each month is a fresh run with a defined arc—start, push, peak, reset.
+   - **Rotating content and challenges**: biomes, events, bosses, or modifiers shift month over month; objectives and difficulty curves tune per season so the meta stays fresh. A shared "this month" / "this wipe" identity gives players a common story and healthy stakes.
+   - **Meta progression** carries across resets: performance in the month (depth reached, bosses downed, milestones hit) converts into meta currency or progress. A **long-term talent tree** (or equivalent) unlocks across many seasons; **customizable unlocks** let players choose what to unlock so builds stay personal. No other major survival RPG combines short predictable resets, rotating content, and meaningful meta progression in one package.
+
+2. **Progress on Your Own. Dominate Together.**
+   - The world is not an isolated sandbox. **Co-op moments** (events, bosses, objectives built for groups) give a reason to link up, not just parallel play. **Shared goals**—take down the big thing, hold the line, race the clock as a squad—are optional, not required; group play is the cherry on top, not a gate.
+   - **Show off loot and progress**: cosmetics, titles, base flair, seasonal trophies that signal what you achieved. Your loot and rank have an audience so the grind feels meaningful. When you do group content, the win and bragging rights are shared—progress solo, flex together.
+
+3. **Guild Halls: The Binding Glue**
+   - Without a shared home, the world feels empty. **Guild halls** tie everything together: a place to meet people and hang out, form squads, and see each other. Guilds become the way to find runs and regulars.
+   - **Guild leaderboards and quests** give the group something to push for (rank, prestige, seasonal placement) and shared reasons to log in and contribute. **Building the guild space** (members contribute resources/effort to upgrade and customize the hall—trophies, amenities, visuals) makes it "ours"; the space reflects guild progress and identity. New month, fresh build—building together again is part of the loop. The sandbox becomes a living world.
+
+4. **Scaling Expeditions + Seasonal Leaderboards**
+   - **Expedition runs** that scale infinitely (or by depth/level) are the ideal vehicle for the one-month loop: no ceiling, same format with higher stakes, natural fit for reset (last month's board is history; this month is a new climb).
+   - **Seasonal leaderboards** rank groups (or guilds, or solo) by deepest level reached, highest floor cleared, or equivalent—one clear metric per season. Players form squads to chase the board; rewards and bragging rights attach to placement. **Loop**: within the month, groups run expeditions and climb the board; meta progression can reward how far you got; at reset, the board and run state reset; repeat. Scaling expeditions give the seasonal game a spine—one activity always available, always pushable, tied directly to leaderboards and reset. They answer "what do we do this month?" with "push the expedition and see how high we can rank."
+
 ## 3. Target Player Experience
 - **Session size**: 30–90 minutes “meaningful progress”; 3+ hour marathons optional.
 - **Social**: solo or factions (2–6). Temporary alliances allowed; betrayal supported.
@@ -41,8 +63,17 @@ Base building exists, but it is **secondary**: a Valheim-like homestead that sup
 ### 4.1 Moment-to-Moment Loop
 Choose objective → travel (mount) → fight → loot + XP → upgrade build/gear → craft/rest at home (optional) → repeat.
 
-### 4.2 Weekly Macro Loop
-If the game uses weekly cadence, it should be framed as **refreshing adventure incentives** (events, objectives, ladders), not wipe-driven RTS war:
+### 4.2 One-Month Macro Loop (Primary Cadence)
+The primary cadence is a **one-month reset**: push as hard and as far as you can each month; the world (or the relevant progression layer) resets on a fixed cycle. Within the month:
+- **Early**: scout, establish home/guild presence, clear early content, form squads.
+- **Mid**: contested and elite content ramps; expedition pushes and leaderboard climbing; guild quests and convergence events.
+- **Late**: high-threat windows, finale events, last push for expedition depth and leaderboard placement.
+- **Reset**: board and run state reset; meta progression (talent tree, unlocks) carries over; new month, new race.
+
+Scaling **expedition runs** (go in, push depth/level, get out) are the spine: always available, always pushable, directly tied to seasonal leaderboards and the reset.
+
+### 4.3 Optional Weekly Sub-Cadence
+If the game uses a weekly cadence within the month, it should be framed as **refreshing adventure incentives** (events, objectives), not a second wipe:
 - early week: new objectives + accessible events
 - mid week: contested elite content ramps
 - late week: finale event + rewards/leaderboards
@@ -157,26 +188,39 @@ If PvP modes are shipped, they must:
 - focus rewards on **cosmetics, status, or sidegrades**, not irreplaceable progression.
 - preserve homesteads primarily as **social and survival hubs**, not siege targets.
 
+### 6.10 Guild Systems
+- **Guild halls**: shared social space (not just a menu)—place to meet people, hang out, form squads, find runs. The hall is the binding glue that turns the sandbox into a living world.
+- **Guild leaderboards and quests**: shared stakes (rank, prestige, seasonal placement) and reasons to log in and contribute as a group.
+- **Building the guild space**: members contribute resources/effort to upgrade and customize the hall (trophies, amenities, visuals); the space reflects guild progress and identity. New month, fresh build—building together again is part of the loop.
+
+### 6.11 Scaling Expeditions & Seasonal Leaderboards
+- **Expedition runs**: content that scales infinitely (or by depth/level)—go in, push depth, get out. No ceiling; same format with higher stakes; natural fit for the one-month reset (last month's board is history; this month is a new climb).
+- **Seasonal leaderboards**: rank groups (or guilds, or solo) by deepest level reached, highest floor cleared, or equivalent—one clear metric per season. Rewards and bragging rights attach to placement. This is the spine of the seasonal game: one activity always available, always pushable, tied directly to leaderboards and reset.
+
 ## 7. Progression & Competitive Structure
-### 7.1 Character Progression (Persistent)
-Persists:
+### 7.1 Character Progression (Within-Month / Reset-Bound)
+Within each one-month cycle, players progress:
 - hero levels
-- build unlocks (talents/runes/augments)
-- gear progression (as designed)
+- build unlocks (talents/runes/augments for the run)
+- gear progression (as designed for the season)
 
-### 7.2 Meta-Progression (Persists Across Updates)
-Persists:
-- cosmetics
-- blueprint unlocks
-- commander traits
-- starting bonuses
-- prestige ranks
+At **reset**, the world or the relevant progression layer resets; character power and run state do not carry over. This creates a defined arc each month—start, push, peak, reset.
 
-### 7.3 Seasons (Quarterly) + Battle-Pass Style Progression
-- **Season cadence**: **once per quarter** (≈ 12–13 weeks).
+### 7.2 Meta-Progression (Persists Across Resets)
+**Must persist** across monthly resets:
+- **Long-term talent tree** (or equivalent): unlocks earned across many seasons; progression is permanent and visible.
+- **Customizable unlocks**: players choose what to unlock (builds stay personal); unlocks are earned by **how far you pushed** (depth reached, bosses downed, milestones hit) in the month.
+- cosmetics, blueprint unlocks, starting bonuses, prestige ranks
+- commander traits (if applicable)
+
+Performance in the month converts into meta currency or progress so that every run contributes to the long-term account.
+
+### 7.3 Seasons (One-Month Cadence) + Battle-Pass Style Progression
+- **Season cadence**: **one month** (primary reset loop). Everyone runs against the same clock; each month is a fresh run with a defined arc.
 - **Season structure**:
-  - multiple weekly refreshes inside one season
-  - season objectives that encourage engagement each week
+  - rotating content and challenges (biomes, events, bosses, or modifiers can shift month over month)
+  - optional weekly refreshes inside the month (objectives, events)
+  - season objectives that encourage engagement across the month
   - battle-pass style progression track (free + premium lanes optional; never pay-to-win)
 
 #### 7.3.0 Season Rewards (Examples / Target Catalog)
@@ -189,12 +233,13 @@ Season rewards should be primarily cosmetic/customization-based, including:
 - **Emotes / titles / badges** (prestige identity)
 
 #### 7.3.1 Season Objectives (Must Exist)
-Each season must include:
-- **weekly objectives** that refresh each week (encourage “come back for new objectives”)
-- **season-long objectives** (multi-week goals) that provide long-tail engagement
+Each season (month) must include:
+- **season-long objectives** (goals across the month) that provide long-tail engagement and tie into meta progression
+- **optional weekly objectives** that refresh each week (encourage “come back for new objectives” without requiring daily login)
 - objectives should push players into:
   - contested zones / strategic resources
-  - PvE camp progression
+  - PvE camp progression and **expedition depth** (scaling runs, leaderboard climb)
+  - guild quests and convergence events
   - faction conflict/defense participation (when playing with others)
   - finale / event-arc participation
 
@@ -202,11 +247,11 @@ Design constraints:
 - objectives must be completable on the core time budget (3–4 hours, 3 days/week)
 - wherever possible, objectives should have **solo-achievable variants** and **small-squad variants** (same fantasy, scaled demands)
 - objectives should promote spotlight moments, not chores (quality > quantity)
-- avoid “must log in daily” pressure; weekly cadence is primary
+- avoid “must log in daily” pressure; monthly cadence is primary, weekly is optional refresh
 
 #### 7.3.2 Battle Pass Progress Sources (Preferred)
 Battle-pass XP should come from:
-- participating in weekly arc milestones (Day 3+ conflicts, Day 7 finale)
+- participating in month arc milestones (mid-month conflicts, month finale)
 - accomplishing “spotlight moment” actions (boss clears, base defense, raid success/repel)
 - completing season objectives
 - optional bonus for winning/placing, without making pass completion dependent on victory
@@ -215,13 +260,13 @@ Battle-pass constraints:
 - rewards must be **non-power** (cosmetic/customization/prestige)
 - VFX rewards must preserve **readability** (no pay-for-clarity disadvantage)
 
-### 7.4 Seasonal Ranking (Optional Competitive Ladder)
-- Season length: **quarterly** (cadence can align to major content updates or biome expansions rather than hard world resets).
-- Point sources (if a ladder exists) should bias toward **PvE accomplishment**:
-  - NPC camp clears
-  - boss kills and world event participation
+### 7.4 Seasonal Ranking & Leaderboards
+- **Season length**: **one month** (aligned to the primary reset loop). At reset, the board and run state reset; meta progression carries over.
+- **Expedition leaderboards** (core): rank groups, guilds, or solo by **deepest level reached** or highest floor cleared—one clear metric per season. Players form squads to chase the board; rewards and bragging rights attach to placement. Scaling expeditions are the spine: push, rank, reset, repeat.
+- **Additional ladder sources** (if present) should bias toward **PvE accomplishment**:
+  - NPC camp clears, boss kills, world event participation
   - exploration milestones (biomes mastered, POIs discovered)
-  - base/homestead development milestones
+  - base/homestead and **guild** development milestones
   - optional PvP victories (if enabled), without being the dominant score source
 - Rank tiers example: Bronze → Iron → Silver → Gold → Mythic → Legend
 
@@ -233,20 +278,21 @@ Battle-pass constraints:
 - mount traversal prototype
 - NPC camps/POIs tier 1–2 + 1 boss encounter
 - optional event objective prototype (1–2 events)
+- (Post-MVP / roadmap: one-month reset loop, meta progression, guild halls, scaling expeditions + seasonal leaderboards)
 
-Goal: validate **combat feel + travel pacing + adventure loop + spotlight moments**.
+Goal: validate **combat feel + travel pacing + adventure loop + spotlight moments**. Later phases validate **one-month loop + meta progression + guilds + expedition leaderboards**.
 
 ## 9. Key Risks
 - snowballing factions
 - offline raiding frustration
 - complexity barrier
 - server cost for multi-day simulation
-- burnout from weekly cadence
+- burnout from monthly cadence
 - “splashy” combat becoming unreadable
 
 ## 10. Success Criteria (What We’d Measure)
 (Initial targets to refine later.)
 - Players can recall and share highlight moments after a week.
-- Day 7 participation remains high (final stand is a strong draw).
+- Month finale participation remains high (final stand is a strong draw).
 - New players can reach “Hero Ascension” within the first week via clear onboarding.
 

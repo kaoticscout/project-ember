@@ -565,24 +565,40 @@ function stripRaritySuffix(s: string): string {
   return s.replace(/\s*\((?:rare|epic|legendary|uncommon|common)\)\s*$/i, "").trim();
 }
 
+const RARITY_ORDER: RewardRarity[] = ["common", "uncommon", "rare", "epic", "legendary"];
+
+function atLeastRarity(rarity: RewardRarity, minRarity: RewardRarity): RewardRarity {
+  const a = RARITY_ORDER.indexOf(rarity);
+  const b = RARITY_ORDER.indexOf(minRarity);
+  return b > a ? minRarity : rarity;
+}
+
 /** Normalize reward to { name, rarity } for display. Infers rarity from string (e.g. "(rare)" → rare). */
 export function normalizeReward(
-  item: string | RewardItem
+  item: string | RewardItem,
+  options?: { minRarity?: RewardRarity }
 ): { name: string; rarity: RewardRarity } {
+  let result: { name: string; rarity: RewardRarity };
   if (typeof item === "string") {
     const lower = item.toLowerCase();
     if (lower.includes("legendary") || lower.includes("pinnacle") || lower.includes("prestige"))
-      return { name: stripRaritySuffix(item), rarity: "legendary" };
-    if (lower.includes("(rare)") || lower.includes(" rare)") || lower.endsWith("(rare)"))
-      return { name: stripRaritySuffix(item), rarity: "rare" };
-    if (lower.includes("epic") || lower.includes("singularity") || lower.includes("cinderheart"))
-      return { name: stripRaritySuffix(item), rarity: "epic" };
-    if (lower.includes("uncommon") || lower.includes("blueprint") || lower.includes("fragment"))
-      return { name: stripRaritySuffix(item), rarity: "uncommon" };
-    return { name: stripRaritySuffix(item), rarity: "uncommon" };
+      result = { name: stripRaritySuffix(item), rarity: "legendary" };
+    else if (lower.includes("(rare)") || lower.includes(" rare)") || lower.endsWith("(rare)"))
+      result = { name: stripRaritySuffix(item), rarity: "rare" };
+    else if (lower.includes("epic") || lower.includes("singularity") || lower.includes("cinderheart"))
+      result = { name: stripRaritySuffix(item), rarity: "epic" };
+    else if (lower.includes("uncommon") || lower.includes("blueprint") || lower.includes("fragment"))
+      result = { name: stripRaritySuffix(item), rarity: "uncommon" };
+    else
+      result = { name: stripRaritySuffix(item), rarity: "uncommon" };
+  } else {
+    result = {
+      name: stripRaritySuffix(item.name),
+      rarity: item.rarity ?? "uncommon",
+    };
   }
-  return {
-    name: stripRaritySuffix(item.name),
-    rarity: item.rarity ?? "uncommon",
-  };
+  if (options?.minRarity) {
+    result = { ...result, rarity: atLeastRarity(result.rarity, options.minRarity) };
+  }
+  return result;
 }

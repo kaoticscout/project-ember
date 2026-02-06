@@ -422,10 +422,10 @@ export default function GameArchivedPage() {
               <div className="ember-panel">
                 <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
                   <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    Why they matter in the weekly arc
+                    Why they matter in the month arc
                   </div>
                   <div className="mt-1 text-sm text-[color:var(--text-2)]">
-                    A mid/late-week focal point with shard-wide gravity.
+                    A mid/late-month focal point with shard-wide gravity.
                   </div>
                 </div>
                 <div className="relative px-5 py-5">
@@ -564,7 +564,7 @@ export default function GameArchivedPage() {
                   </ul>
                   <div className="mt-5 flex flex-wrap gap-3">
                     <Link
-                      href="/classes"
+                      href="/game/classes"
                       className="ember-button-primary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-0)]"
                     >
                       Browse heroes

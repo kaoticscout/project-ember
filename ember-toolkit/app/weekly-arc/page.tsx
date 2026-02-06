@@ -4,7 +4,7 @@ import { LandingFeatureSection } from "@/components/site/LandingFeatureSection";
 import { OrnamentDivider } from "@/components/site/OrnamentDivider";
 
 type ArcPhase = {
-  days: string;
+  phase: string;
   label: string;
   focus: string;
   highlights: string[];
@@ -27,10 +27,10 @@ type MissionGroup = {
 
 const phases: ArcPhase[] = [
   {
-    days: "Day 1–2",
+    phase: "Week 1–2",
     label: "Scouting & First Clears",
     focus:
-      "Establish momentum: routes, early gear, and a stable camp that supports survival runs (not chores).",
+      "Establish momentum: routes, early gear, and a stable camp (or guild presence) that supports survival runs (not chores).",
     highlights: [
       "Fast exploration via mounts; learn chokepoints, safe paths, and camp approaches",
       "Clear Tier 1–2 camps and secure first “build-defining” upgrades",
@@ -48,10 +48,10 @@ const phases: ArcPhase[] = [
     accent: "gold",
   },
   {
-    days: "Day 3–4",
+    phase: "Week 3",
     label: "Escalation & Rivalry",
     focus:
-      "The world starts pushing players together: stronger camps, more contested objectives, and higher PvE stakes.",
+      "The world starts pushing players together: stronger camps, more contested objectives, expedition pushes, and higher PvE stakes.",
     highlights: [
       "Contested Tier 2+ camps become reliable co-op and optional PvP hotspots",
       "Groups chase high-end resources and blueprint paths for builds and homesteads",
@@ -65,38 +65,22 @@ const phases: ArcPhase[] = [
     accent: "ember",
   },
   {
-    days: "Day 5–6",
-    label: "High Threat Windows",
+    phase: "Week 4",
+    label: "High Threat & Finale",
     focus:
-      "Peak danger. Survival runs pay out big, and fights get decisive. These days should generate the best co-op stories.",
+      "Peak danger and month finale. Survival runs pay out big; a culminating world event provides narrative closure and leaderboard lock.",
     highlights: [
       "Roaming threats and dangerous events pull squads into the open",
       "World bosses and elite POIs become the main spectacle",
-      "High-value bosses/POIs force commitments and create betrayals",
+      "Final convergence: boss/event that rewards execution and coordination",
     ],
     pressure: [
       "Example modifier: Resource decay / scarcity pressure",
-      "Example modifier: Storm shrink / map pressure that forces contact",
-    ],
-    rewards: ["High-end mats", "Pinnacle crafting catalysts", "Prestige objectives and score drivers"],
-    accent: "arcane",
-  },
-  {
-    days: "Day 7",
-    label: "Finale Event",
-    focus:
-      "A culminating world event that provides narrative closure: clear stakes, clear winners, and memorable clips.",
-    highlights: [
-      "Final convergence: boss/event that rewards execution and coordination",
-      "Last-stand defenses and desperate steals are the headline moments",
-      "Score/rewards finalize the week’s “chapter”",
-    ],
-    pressure: [
       "Example modifier: Apocalypse / hard convergence + scoring push",
       "Clear UI/audio callouts so the spectacle is watchable",
     ],
     rewards: ["Finale payout", "Ranking/leaderboard progress", "Season XP (if enabled)"],
-    accent: "gold",
+    accent: "arcane",
   },
 ];
 
@@ -217,8 +201,8 @@ export default function WeeklyArcPage() {
     <div>
       <Hero
         eyebrow="Cadence"
-        title="Weekly Arc & Escalation Calendar"
-        subtitle="A 7-day adventure chapter: predictable escalation, unpredictable stories. Designed for 3–4 hour sessions (3 days/week) while still rewarding mastery."
+        title="Month Arc & Escalation Calendar"
+        subtitle="A month-long adventure chapter aligned with the reset window: predictable escalation, unpredictable stories. Designed for 3–4 hour sessions (3 days/week) while still rewarding mastery."
         background="world"
       >
         <div className="flex flex-wrap gap-3">
@@ -238,9 +222,9 @@ export default function WeeklyArcPage() {
       </Hero>
 
       <LandingFeatureSection
-        eyebrow="Weekly arc"
+        eyebrow="Month arc"
         title="A chapter you can plan — without turning into chores."
-        subtitle="Ember’s weekly cadence (if enabled) is framed as an adventure arc: early exploration, mid-week rivalry, late-week high-stakes windows, and a definitive finale. The schedule is predictable, but outcomes stay emergent."
+        subtitle="Ember’s month aligns with the reset: early month exploration, mid-month rivalry, late-month high-stakes windows, and a definitive finale. The schedule is predictable, but outcomes stay emergent."
         imageSrc="/assets/feature-seasons.svg"
         imageAlt="Weekly cadence preview"
       />
@@ -249,7 +233,7 @@ export default function WeeklyArcPage() {
 
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-[1320px] px-4">
-          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">THE WEEK</div>
+          <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">THE MONTH</div>
           <h2 className="ember-display mt-3 text-3xl text-[color:var(--text-0)] sm:text-4xl">
             The escalation calendar
           </h2>
@@ -261,14 +245,14 @@ export default function WeeklyArcPage() {
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {phases.map((p) => (
               <div
-                key={p.days}
+                key={p.phase}
                 className="relative overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_72%,transparent)]"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${accentClass(p.accent)} via-transparent to-transparent`} />
                 <div className="relative border-b border-[color:var(--border-subtle)] px-6 py-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">{p.days.toUpperCase()}</div>
+                      <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">{p.phase.toUpperCase()}</div>
                       <div className="ember-display mt-2 text-2xl text-[color:var(--text-0)]">
                         {p.label}
                       </div>

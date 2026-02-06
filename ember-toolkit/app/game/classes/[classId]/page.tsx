@@ -30,7 +30,7 @@ export default async function ClassDetailPage({ params }: PageProps) {
           background="world"
         >
           <Link
-            href="/classes"
+            href="/game/classes"
             className="ember-button-secondary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
           >
             ← Back to roster
@@ -53,7 +53,7 @@ export default async function ClassDetailPage({ params }: PageProps) {
       >
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/classes"
+            href="/game/classes"
             className="ember-button-secondary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
           >
             ← Back to roster
@@ -159,4 +159,3 @@ export default async function ClassDetailPage({ params }: PageProps) {
     </div>
   );
 }
-

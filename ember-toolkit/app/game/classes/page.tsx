@@ -18,7 +18,7 @@ export default function ClassesPage() {
       <Hero
         eyebrow="Heroes"
         title="Hero Archetypes"
-        subtitle="A catalog of Ember’s hero types. No builds here — just the fantasy, role, and signature kit for each archetype."
+        subtitle="A catalog of Ember's hero types. No builds here — just the fantasy, role, and signature kit for each archetype."
         background="world"
       />
 
@@ -31,13 +31,13 @@ export default function ClassesPage() {
       >
         <div className="flex flex-wrap gap-3">
           <Link
-            href={`/classes/${newest.id}`}
+            href={`/game/classes/${newest.id}`}
             className="ember-button-primary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-0)]"
           >
             View archetype
           </Link>
           <Link
-            href="/"
+            href="/game"
             className="ember-button-secondary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
           >
             ← Back
@@ -79,7 +79,7 @@ export default function ClassesPage() {
               <div key={c.id} className="relative">
                 {isAvailable(c.id) ? (
                   <Link
-                    href={`/classes/${c.id}`}
+                    href={`/game/classes/${c.id}`}
                     className="group relative block overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_72%,transparent)] p-5 hover:border-[color:var(--border-accent)]"
                   >
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[color:color-mix(in_oklab,var(--bg-0)_85%,transparent)]" />
@@ -177,4 +177,3 @@ export default function ClassesPage() {
     </div>
   );
 }
-

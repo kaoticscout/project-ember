@@ -49,7 +49,7 @@ export function HeroSpotlightPage(props: { heroId: string }) {
       >
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/classes"
+            href="/game/classes"
             className="ember-button-secondary rounded-md px-4 py-2 text-sm font-medium text-[color:var(--text-1)] hover:text-[color:var(--text-0)]"
           >
             ← Back to archetypes

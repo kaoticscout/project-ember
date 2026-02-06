@@ -24,42 +24,54 @@ const ACCENT_TO_CSS_VAR: Record<Accent, string> = {
 
 const DIFFERENTIATORS: DifferentiatorSpotlight[] = [
   {
-    id: "vast-world",
+    id: "one-month-loop",
     eyebrow: "Core differentiator",
-    title: "A continent that stays big",
+    title: "One month. One run. Meta that carries over.",
     subtitle:
-      "Ember's world isn't a theme park loop. You ride for minutes between biomes, peel back fog-of-war one ridge at a time, and chase landmarks you've seen on the horizon since hour one.",
+      "The world resets on a fixed one-month cycle. Everyone runs against the same clock—push as far as you can, then do it again. Your long-term talent tree and unlocks carry over, earned by how far you got.",
     description:
-      "Fast travel is earned, not given. The map stays unknown until you've ridden there. Some bosses live at the end of journeys you prepare for all week—multi-region expeditions that preserve a sense of scale even when you're geared.",
+      "Rotating content and challenges keep each month fresh. No other survival RPG combines short predictable resets, seasonal variety, and meaningful meta progression in one package. Start, push, peak, reset; your account keeps growing.",
     accent: "gold",
     imageSrc: "/assets/Zones/Emberwastes.png",
-    imageAlt: "Vast wasteland stretching to the horizon",
-    // videoSrc: "/assets/Videos/exploration.mp4", // Placeholder for future video
+    imageAlt: "Vast world under a seasonal cycle",
   },
   {
-    id: "raid-combat",
+    id: "progress-solo-dominate-together",
     eyebrow: "Core differentiator",
-    title: "Raid-caliber combat, 1–4 players",
+    title: "Progress on your own. Dominate together.",
     subtitle:
-      "Build heroes with MMO-style kits—cooldowns, telegraphs, interrupts—and fight bosses that feel like raid encounters even when it's just you and a friend.",
+      "Co-op moments—world bosses, caravan runs, convergence events—give you a reason to link up. Your loot and rank have an audience. Progress solo; flex together.",
     description:
-      "Every archetype has solo-viable builds; every boss has mechanics that reward small-squad mastery. World raid bosses are designed to feel like MMO encounters dropped into a survival world: phases, telegraphs, role checks. You can take them on with a small squad—or tackle earlier tiers solo with the right build and preparation.",
+      "The world isn't an isolated sandbox. Shared goals and group content are optional, not required. Cosmetics, titles, and seasonal trophies let you show off what you achieved. When you do group content, the win and bragging rights are shared.",
     accent: "arcane",
-    imageSrc: "/assets/Zones/VoidReach.png", // Fallback image
-    imageAlt: "Epic boss encounter with telegraphs and mechanics",
+    imageSrc: "/assets/Zones/VoidReach.png",
+    imageAlt: "Squad taking on a world boss",
     videoSrc: "/assets/Events/Boss.mp4",
   },
   {
-    id: "survival-stage",
+    id: "guild-halls",
     eyebrow: "Core differentiator",
-    title: "Survival as stage, not chore",
+    title: "Guild halls: the binding glue",
     subtitle:
-      "Hunger, weather, and biome rules make leaving the fire feel dangerous—but the point is the journey and the fight, not calorie spreadsheets.",
+      "A shared home to meet people, form squads, and find runs. Guild leaderboards and quests give the group something to push for. Members build the space together—trophies, amenities, identity.",
     description:
-      "Your homestead and support vehicles exist to let you push deeper, not trap you in upkeep. Survival systems create tension and identity for each region, but mastering a biome is about exploration and combat—not spreadsheet management.",
+      "Without a shared home, the world feels empty. Guild halls turn the sandbox into a living world. New month, fresh build—contributing to the hall is part of the loop. The space reflects who you are as a guild.",
     accent: "ember",
     imageSrc: "/assets/Zones/Ironwood.png",
-    imageAlt: "Homestead nestled in dangerous wilderness",
+    imageAlt: "Guild hall as social hub",
+  },
+  {
+    id: "scaling-expeditions",
+    eyebrow: "Core differentiator",
+    title: "Scaling expeditions + seasonal leaderboards",
+    subtitle:
+      "Runs that scale by depth. Leaderboards that rank by how far you got. Push within the month, climb the board, reset, repeat. One activity always available and always pushable.",
+    description:
+      "Expeditions are the spine of the seasonal game: go in, push depth, get out. No ceiling. Same format with higher stakes. Rewards and bragging rights attach to placement. This is what you do this month.",
+    accent: "gold",
+    imageSrc: "/assets/Zones/Silvershade.png",
+    imageAlt: "Expedition pushing into deeper levels",
+    videoSrc: "/assets/Events/DungeonDelve.mp4",
   },
 ];
 
@@ -248,10 +260,10 @@ export default function GamePage() {
             WHAT MAKES EMBER DIFFERENT
           </div>
           <h2 className="ember-display mt-3 text-balance text-3xl text-[color:var(--text-0)] sm:text-4xl">
-            Three pillars that define the experience
+            Four pillars that define the experience
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[color:var(--text-1)] sm:text-base">
-            Ember isn't just another survival RPG. These core differentiators shape every system, every biome, and every moment.
+            Ember isn't just another survival RPG. These core differentiators—one-month loop, meta progression, guild halls, and scaling expeditions—shape every system and every moment.
           </p>
 
           <div className="mt-10 space-y-8 sm:space-y-10">
@@ -269,128 +281,6 @@ export default function GamePage() {
         imageSrc="/assets/Zones/Emberwastes.png"
         imageAlt="Hero riding across a stormy wasteland"
       />
-
-      {/* Build a hero — full-width cinematic + class strip */}
-      <section className="scroll-mt-24 pb-16 pt-10 sm:pt-14">
-        <div className="relative mx-auto max-w-[1320px] px-4">
-          <div className="relative overflow-hidden rounded-3xl border border-[color:color-mix(in_oklab,var(--border-subtle)_70%,transparent)] bg-[color:var(--bg-2)]">
-            <div className="absolute inset-0">
-              <video
-                className="absolute inset-0 h-full w-full object-cover opacity-90"
-                src={withBasePath("/assets/Events/Boss.mp4")}
-                playsInline
-                muted
-                loop
-                autoPlay
-                aria-hidden
-              />
-              <div className="ember-bg-noise absolute inset-0 opacity-60" />
-              <div className="absolute inset-0 bg-gradient-to-b from-[color:color-mix(in_oklab,var(--bg-0)_70%,transparent)] via-[color:color-mix(in_oklab,var(--bg-0)_50%,transparent)] to-[color:var(--bg-0)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(720px_420px_at_50%_20%,color-mix(in_oklab,var(--accent-arcane)_18%,transparent),transparent_65%)]" />
-            </div>
-
-            <div className="relative py-16 sm:py-20 lg:py-24">
-              <div className="mx-auto max-w-3xl px-4 text-center">
-                <div className="text-xs tracking-[0.32em] text-[color:var(--text-2)]">
-                  HEROES & RAID ENCOUNTERS
-                </div>
-                <h2 className="ember-display mt-3 text-balance text-4xl text-[color:var(--text-0)] sm:text-5xl lg:text-6xl">
-                  Build a hero that can carry a frontier raid.
-                </h2>
-                <p className="mt-5 max-w-2xl mx-auto text-pretty text-base leading-relaxed text-[color:var(--text-1)] sm:text-lg">
-                  Pick an archetype. Grow it from capable adventurer into raid‑caliber hero. Kits are tight and expressive—phases, telegraphs, role checks. Solo or small squad.
-                </p>
-              </div>
-
-              <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto px-4">
-                {[
-                  { name: "Warden", img: "/assets/Classes/warden.jpg" },
-                  { name: "Mystic", img: "/assets/Classes/mystic.jpg" },
-                  { name: "Hunter", img: "/assets/Classes/hunter.jpg" },
-                  { name: "Marshal", img: "/assets/Classes/marshal.jpg" },
-                ].map((c) => (
-                  <div
-                    key={c.name}
-                    className="group relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]"
-                  >
-                    <div className="relative aspect-[3/4]">
-                      <Image
-                        src={withBasePath(c.img)}
-                        alt={c.name}
-                        fill
-                        sizes="(min-width: 640px) 200px, 50vw"
-                        className="object-cover object-top opacity-95 group-hover:opacity-100 transition-opacity"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--bg-0)] via-transparent to-transparent opacity-90" />
-                      <div className="absolute bottom-0 left-0 right-0 px-3 py-2 text-center">
-                        <span className="ember-display text-sm font-semibold text-[color:var(--text-0)] tracking-wide">
-                          {c.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <HeroSpotlight
-        eyebrow="Journey, not teleports"
-        title="Expedition tools, not instant portals."
-        subtitle="Ember gives you ways to go farther—not to skip the world. Mounts, pack wagons, signal towers, and field workshops turn a dangerous continent into something you and your friends can actually cross."
-        imageSrc="/assets/SiegeWeapons/war_wagon.jpg"
-        imageAlt="Expedition vehicles crossing vast terrain"
-        flip={true}
-      />
-
-      <section className="pb-12 pt-10 sm:pb-16">
-        <div className="mx-auto max-w-[1320px] px-4">
-          <div className="grid gap-4 lg:grid-cols-3">
-            {[
-              {
-                k: "Mounts",
-                v: "Fast, responsive travel for crossing huge stretches of land—but you still feel every biome you ride through.",
-                img: "/assets/Zones/Silvershade.png",
-              },
-              {
-                k: "Pack wagons & caravans",
-                v: "Haul more than you should safely carry. Great when you're committing to deep runs and multi‑stop routes.",
-                img: "/assets/SiegeWeapons/war_wagon.jpg",
-              },
-              {
-                k: "Field workshops & signal towers",
-                v: "Mobile rest / resupply points and vantage perches that turn the wilds into a network of risky forward bases.",
-                img: "/assets/SiegeWeapons/catapult.jpg",
-              },
-            ].map((x) => (
-              <div key={x.k} className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)]">
-                <div className="absolute inset-0">
-                  <Image
-                    src={withBasePath(x.img)}
-                    alt={x.k}
-                    fill
-                    sizes="(min-width: 1024px) 400px, 100vw"
-                    className="object-cover opacity-40"
-                    priority={false}
-                  />
-                  <div className="ember-bg-noise absolute inset-0 opacity-50" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[color:color-mix(in_oklab,var(--bg-0)_85%,transparent)]" />
-                </div>
-                <div className="relative border-b border-[color:var(--border-subtle)] px-5 py-4">
-                  <div className="ember-display text-sm font-semibold text-[color:var(--text-0)]">
-                    {x.k}
-                  </div>
-                </div>
-                <div className="relative px-5 py-4 text-sm text-[color:var(--text-1)]">
-                  {x.v}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="relative overflow-hidden py-12 sm:py-16">
         <div className="absolute inset-0">

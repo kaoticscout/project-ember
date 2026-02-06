@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { withBasePath } from "@/lib/withBasePath";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { OrnamentDivider } from "@/components/site/OrnamentDivider";
@@ -170,9 +171,7 @@ export function ZoneMapCanvas(props: Props) {
     if (typeof parsed.mapScale === "number") {
       setMapScale(clamp(parsed.mapScale, 1, 2));
     }
-    if (typeof parsed.optionsOpen === "boolean") {
-      setOptionsOpen(parsed.optionsOpen);
-    }
+    // optionsOpen is not restored from storage; we always start with options closed
 
     if (parsed.tuning && typeof parsed.tuning === "object") {
       setTuning((prev) => {
@@ -611,7 +610,7 @@ export function ZoneMapCanvas(props: Props) {
   }, [mapScale, clampPan]);
 
   return (
-    <section className="pb-16">
+    <section className="pt-4 pb-0">
       <div className="mx-auto max-w-[1320px] px-4">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           {/* Map */}
@@ -882,6 +881,17 @@ export function ZoneMapCanvas(props: Props) {
                   </div>
                 );
               })() : null}
+            </div>
+
+            {/* Back to World Map */}
+            <div className="absolute left-4 top-4 z-10">
+              <Link
+                href="/map"
+                className="inline-flex items-center gap-2 rounded-xl border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-0)_78%,transparent)] px-4 py-2.5 text-sm font-medium text-[color:var(--text-1)] shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md hover:border-[color:var(--border-accent)] hover:text-[color:var(--text-0)]"
+              >
+                <span aria-hidden>←</span>
+                World Map
+              </Link>
             </div>
 
             {/* Zoom controls */}
@@ -1732,7 +1742,7 @@ function MarkerDetailContent(props: {
               </div>
               <ul className="flex flex-col gap-1.5">
                 {detail.rewards.map((r, i) => {
-                  const { name, rarity } = normalizeReward(r);
+                  const { name, rarity } = normalizeReward(r, isBoss ? { minRarity: "epic" } : undefined);
                   return (
                     <RewardItemRow key={i} name={name} rarity={rarity} icon={typeof r !== "string" ? r.icon : undefined} />
                   );
