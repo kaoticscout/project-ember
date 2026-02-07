@@ -1,0 +1,343 @@
+{
+  "layers": {
+    "harvest": true,
+    "event": true,
+    "raidBoss": true,
+    "base": false
+  },
+  "tuning": {
+    "harvest": { "hue": 145, "nodeSize": 1.2, "nodeRadius": 0.85, "outerEnabled": false },
+    "event": { "hue": 45, "nodeSize": 1.3, "nodeRadius": 1, "outerEnabled": true, "zoneRadius": 0.4, "areaOpacity": 0.46 },
+    "raidBoss": { "hue": 0, "nodeSize": 1, "nodeRadius": 1, "outerEnabled": true, "zoneRadius": 0.4, "areaOpacity": 0.48 },
+    "base": { "hue": 38, "size": 1, "radius": 1 }
+  },
+  "mapOpacity": 0.8,
+  "mapScale": 1,
+  "markerPositions": {
+    "emberwastes": {
+      "event-ember-salvage-convoy": {
+        "x": 21.596105875831483,
+        "y": 42.391943546015874
+      },
+      "poi-ember-meltworks": {
+        "x": 11.706624168514413,
+        "y": 58.98020190140154
+      },
+      "poi-ember-cinder-bastion": {
+        "x": 54.429393015521065,
+        "y": 81.34372243457807
+      },
+      "event-ember-ash-squall-surge": {
+        "x": 25.843611419068736,
+        "y": 77.87170440066647
+      },
+      "event-ember-breach-drill": {
+        "x": 71.99106152993348,
+        "y": 72.2287562481623
+      },
+      "poi-ember-ashgate-pass": {
+        "x": 63.88407705099778,
+        "y": 17.335587572282662
+      },
+      "harvest-ember-cinderstone-01-r2": {
+        "x": 12.245357538802661,
+        "y": 41.527001862197395
+      },
+      "harvest-ember-sulfur-01-r4": {
+        "x": 33.349501108647445,
+        "y": 63.98118200529256
+      },
+      "harvest-ember-sulfur-02-r3": {
+        "x": 62.245357538802665,
+        "y": 81.86562775654218
+      },
+      "harvest-ember-sulfur-02": {
+        "x": 46.5805155210643,
+        "y": 83.01479956875428
+      },
+      "harvest-ember-glasssand-01-r2": {
+        "x": 9.187915742793784,
+        "y": 54.24875036753896
+      },
+      "harvest-ember-ashwood-02-r4": {
+        "x": 51.89509423503326,
+        "y": 65.95609134568265
+      },
+      "harvest-ember-cinderstone-01-r1": {
+        "x": 76.88816518847007,
+        "y": 52.97216504949525
+      },
+      "harvest-ember-cinderstone-02-r1": {
+        "x": 41.633176274944574,
+        "y": 41.210918357345875
+      },
+      "harvest-ember-glasssand-01-r4": {
+        "x": 34.906804323725055,
+        "y": 34.029207095952174
+      },
+      "harvest-ember-cinderstone-02-r4": {
+        "x": 72.73766629711753,
+        "y": 16.326080564539843
+      },
+      "harvest-ember-glasssand-02-r3": {
+        "x": 64.53713968957872,
+        "y": 64.62560031363324
+      },
+      "harvest-ember-glasssand-01": {
+        "x": 20.766352549889138,
+        "y": 63.059884347740855
+      },
+      "harvest-ember-glasssand-02": {
+        "x": 44.76164079822616,
+        "y": 75.64686856806821
+      },
+      "boss-ember-castellan": {
+        "x": 47.20932649667406,
+        "y": 48.27501715181808
+      },
+      "boss-ember-furnace-wyrm": {
+        "x": 89.07635809312637,
+        "y": 47.64530040184259
+      }
+    },    
+    "ironwood": {
+      "event-iron-timberfall": {
+        "x": 45.037070399113084,
+        "y": 34.355091639713805
+      },
+      "event-iron-stag-king": {
+        "x": 11.937014966740573,
+        "y": 24.95099480544937
+      },
+      "poi-iron-rootgate": {
+        "x": 15.902161862527715,
+        "y": 45.09948054493776
+      },
+      "event-iron-wardstone": {
+        "x": 75.67038525498891,
+        "y": 11.810251886699994
+      },
+      "poi-iron-hollow-market": {
+        "x": 83.92461197339246,
+        "y": 77.56297167499756
+      },
+      "poi-iron-old-road": {
+        "x": 64.11446784922394,
+        "y": 48.47103793002058
+      },
+      "harvest-iron-heartwood-02-r2": {
+        "x": 9.413109756097558,
+        "y": 51.264334019406064
+      },
+      "harvest-iron-heartwood-02-r3": {
+        "x": 7.31534090909091,
+        "y": 45.34695677741841
+      },
+      "harvest-iron-heartwood-01": {
+        "x": 13.78707039911308,
+        "y": 17.84769185533667
+      },
+      "harvest-iron-heartwood-03-r2": {
+        "x": 20.41643569844789,
+        "y": 50.58561207487994
+      },
+      "harvest-iron-heartwood-02-r1": {
+        "x": 22.074210088691792,
+        "y": 33.318631774968146
+      },
+      "harvest-iron-heartwood-01-r1": {
+        "x": 30.499930709534365,
+        "y": 28.770949720670394
+      },
+      "harvest-iron-shadowleaf-02": {
+        "x": 37.44110310421286,
+        "y": 22.784965206311867
+      },
+      "harvest-iron-shadowleaf-01-r2": {
+        "x": 51.94013303769401,
+        "y": 15.681662256199157
+      },
+      "harvest-iron-fiber-02-r1": {
+        "x": 59.01815410199557,
+        "y": 12.163089287464471
+      },
+      "harvest-iron-fiber-02-r2": {
+        "x": 55.827328159645226,
+        "y": 43.379398216210916
+      },
+      "boss-iron-rootgate-warden": {
+        "x": 53.49743625277162,
+        "y": 7.853082426737238
+      },
+      "boss-iron-briar-matron": {
+        "x": 78.56672671840354,
+        "y": 46.001176124669215
+      }
+    },    
+    "silvershade": {
+      "poi-silver-wharf": {
+        "x": 29.467502771618626,
+        "y": 26.639223757718305
+      },
+      "event-silver-procession": {
+        "x": 40.46043514412416,
+        "y": 68.23238263255905
+      },
+      "event-silver-convergence": {
+        "x": 74.21182095343681,
+        "y": 75.05145545427816
+      },
+      "event-silver-bell-toll": {
+        "x": 89.31541019955654,
+        "y": 56.1893560717436
+      },
+      "poi-silver-abbey": {
+        "x": 12.584880820399107,
+        "y": 24.313927276291285
+      },
+      "boss-silver-abbot": {
+        "x": 95.28131929046563,
+        "y": 37.88101538763109
+      },
+      "harvest-silver-river-ore-01-r2": {
+        "x": 81.42149390243902,
+        "y": 50.11271194746643
+      },
+      "harvest-silver-lumen-01-r3": {
+        "x": 85.75734478935698,
+        "y": 45.94236989120847
+      },
+      "harvest-silver-slate-01-r3": {
+        "x": 16.686876385809313,
+        "y": 28.743996863667547
+      },
+      "harvest-silver-lumen-01-r2": {
+        "x": 25.82282427937916,
+        "y": 23.61805351367245
+      },
+      "harvest-silver-slate-02-r2": {
+        "x": 20.32116130820399,
+        "y": 49.36783299029697
+      },
+      "harvest-silver-river-ore-01-r1": {
+        "x": 37.340631929046566,
+        "y": 67.3551896501029
+      },
+      "harvest-silver-moonreed-01-r4": {
+        "x": 57.088414634146346,
+        "y": 78.40341076154073
+      },
+      "harvest-silver-slate-02-r1": {
+        "x": 49.367724501108654,
+        "y": 53.670489071841615
+      },
+      "harvest-silver-lumen-01-r1": {
+        "x": 41.8964800443459,
+        "y": 45.60423404880918
+      },
+      "harvest-silver-lumen-02-r4": {
+        "x": 69.12070399113082,
+        "y": 52.97461530922278
+      },
+      "harvest-silver-slate-01-r1": {
+        "x": 75.08834534368071,
+        "y": 62.76585318043712
+      },
+      "harvest-silver-moonreed-02-r1": {
+        "x": 85.20475332594235,
+        "y": 72.87072429677545
+      },
+      "harvest-silver-slate-02-r4": {
+        "x": 52.62540309436895,
+        "y": 37.551627001909324
+      },
+      "harvest-silver-moonreed-01-r2": {
+        "x": 37.276538248337026,
+        "y": 33.71938213461444
+      }
+    },    
+    "voidreach": {
+      "poi-void-causeway": {
+        "x": 22.52955572527464,
+        "y": 71.44406664453187
+      },
+      "event-void-rift-tide": {
+        "x": 56.89749342781599,
+        "y": 85.96257558845107
+      },
+      "poi-void-riftworks": {
+        "x": 25.466895782559185,
+        "y": 39.52310502154815
+      },
+      "event-void-echo-storm": {
+        "x": 37.347784795473196,
+        "y": 24.72461396187444
+      },
+      "event-void-gate-breach": {
+        "x": 45.81859887266412,
+        "y": 54.29690978809259
+      },
+      "poi-void-obsidian-spire": {
+        "x": 62.65429256516635,
+        "y": 38.00973133019889
+      },
+      "boss-void-null-titan": {
+        "x": 79.51600609756098,
+        "y": 64.89757914338921
+      },
+      "boss-void-spire-architect": {
+        "x": 54.92655210643015,
+        "y": 20.20729197294913
+      },
+      "harvest-void-aether-01-r1": {
+        "x": 51.59368070953437,
+        "y": 68.2985396452024
+      },
+      "harvest-void-voidstone-02-r1": {
+        "x": 53.99805986696231,
+        "y": 61.307948642556106
+      },
+      "harvest-void-voidstone-01-r1": {
+        "x": 65.97145232815964,
+        "y": 66.58335783593061
+      },
+      "harvest-void-fracture-01": {
+        "x": 68.10559866962306,
+        "y": 61.60443006958738
+      },
+      "harvest-void-nullbloom-01": {
+        "x": 58.26462028824834,
+        "y": 49.21591688719003
+      },
+      "harvest-void-voidstone-02-r4": {
+        "x": 72.82081485587584,
+        "y": 37.78545525825738
+      },
+      "harvest-void-fracture-02-r2": {
+        "x": 73.51025498891352,
+        "y": 43.16132510046065
+      },
+      "harvest-void-voidstone-01-r2": {
+        "x": 47.134839246119725,
+        "y": 17.74478094678036
+      },
+      "harvest-void-fracture-01-r1": {
+        "x": 50.95794068736142,
+        "y": 16.97539939233559
+      },
+      "harvest-void-nullbloom-01-r4": {
+        "x": 25.483300997782706,
+        "y": 53.88121140840929
+      },
+      "harvest-void-aether-01-r4": {
+        "x": 28.114606430155213,
+        "y": 42.624718220131335
+      },
+      "harvest-void-voidstone-01-r3": {
+        "x": 28.42641352549889,
+        "y": 78.06037439968638
+      }
+    },    
+    "bc07_zangarmarsh": {}
+  }
+}

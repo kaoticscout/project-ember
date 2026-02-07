@@ -56,6 +56,16 @@ function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
 
+function touchDistance(
+  touches: { length: number; [i: number]: { clientX: number; clientY: number } }
+): number {
+  if (touches.length < 2) return 0;
+  const a = touches[0];
+  const b = touches[1];
+  if (!a || !b) return 0;
+  return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
+}
+
 function hsl(hue: number, sat = 78, light = 58, alpha = 1) {
   const h = Math.round(((hue % 360) + 360) % 360);
   return `hsla(${h} ${sat}% ${light}% / ${alpha})`;
@@ -96,6 +106,8 @@ export function ZoneMapCanvas(props: Props) {
   const GLOBAL_SEED_ZONE_ID: ZoneMapId = "ironwood";
   const GLOBAL_SETTINGS_KEY = "ember:zoneMapSettings:v1:global";
   const MARKER_POSITIONS_KEY = `ember:markerPositions:v1:${props.zoneId}`;
+  /** When set, we apply localStorage on load; otherwise we keep shipped defaults (so JSON defaults aren't overwritten by old cache). */
+  const USER_SAVED_KEY = "ember:zoneMapUserHasSaved:v1";
 
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
@@ -133,6 +145,8 @@ export function ZoneMapCanvas(props: Props) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const panStartRef = useRef<{ x: number; y: number; startPanX: number; startPanY: number } | null>(null);
   const dragStartRef = useRef<{ markerId: string; startX: number; startY: number; startMarkerX: number; startMarkerY: number } | null>(null);
+  const touchPinchRef = useRef<{ initialDistance: number; initialScale: number } | null>(null);
+  const [isPinching, setIsPinching] = useState(false);
 
   type StoredStateV1 = {
     layers?: Partial<Record<LayerId, boolean>>;
@@ -210,6 +224,15 @@ export function ZoneMapCanvas(props: Props) {
 
   useEffect(() => {
     try {
+      // Only apply localStorage when the user has explicitly saved (Save as default / Save as global).
+      // Otherwise keep the initial state from shipped defaults (zoneMapDefaults.json) so we don't
+      // overwrite correct sizes with old or auto-persisted cache.
+      const userHasSaved = localStorage.getItem(USER_SAVED_KEY) === "1";
+      if (!userHasSaved) {
+        hasHydratedRef.current = true;
+        return;
+      }
+
       const defaultsRaw = localStorage.getItem(DEFAULT_KEY);
       if (defaultsRaw) {
         applyStoredState(JSON.parse(defaultsRaw) as StoredStateV1);
@@ -217,8 +240,6 @@ export function ZoneMapCanvas(props: Props) {
 
       let globalDefaultsRaw = localStorage.getItem(GLOBAL_DEFAULT_KEY);
 
-      // If global defaults don't exist yet, seed them from the user's tuned Ironwood setup
-      // (this lets you pick one "canonical" look and have other zones inherit it).
       if (!globalDefaultsRaw) {
         const seedRaw =
           localStorage.getItem(`ember:zoneMapSettings:v1:${GLOBAL_SEED_ZONE_ID}`) ??
@@ -233,8 +254,6 @@ export function ZoneMapCanvas(props: Props) {
         }
       }
 
-      // If there are no per-zone defaults yet, seed them from global defaults (if present).
-      // This lets you tune a look once and have new zones inherit it.
       if (!defaultsRaw && globalDefaultsRaw) {
         applyStoredState(JSON.parse(globalDefaultsRaw) as StoredStateV1);
         try {
@@ -244,11 +263,8 @@ export function ZoneMapCanvas(props: Props) {
         }
       }
 
-      // Global settings: used as the "canonical look" across zones.
-      // Apply these LAST so they win over any per-zone cached settings.
       let globalSettingsRaw = localStorage.getItem(GLOBAL_SETTINGS_KEY);
       if (!globalSettingsRaw) {
-        // Migrate from Ironwood (your canonical tuned zone), falling back to this zone.
         const seedRaw =
           localStorage.getItem(`ember:zoneMapSettings:v1:${GLOBAL_SEED_ZONE_ID}`) ??
           localStorage.getItem(`ember:zoneMapDefaults:v1:${GLOBAL_SEED_ZONE_ID}`) ??
@@ -264,15 +280,11 @@ export function ZoneMapCanvas(props: Props) {
         }
       }
 
-      // Per-zone cached settings (older behavior). Apply, but allow global settings to override.
       const zoneRaw = localStorage.getItem(ZONE_SETTINGS_KEY);
       if (zoneRaw && !globalSettingsRaw) {
-        // Only apply per-zone settings when there is no global style defined.
-        // Once a global style exists, it should consistently win across zones.
         applyStoredState(JSON.parse(zoneRaw) as StoredStateV1);
       }
 
-      // If you already have a tuned/cached setup, promote it to "defaults" once.
       if (!defaultsRaw && !globalDefaultsRaw && zoneRaw) {
         try {
           localStorage.setItem(DEFAULT_KEY, zoneRaw);
@@ -289,7 +301,7 @@ export function ZoneMapCanvas(props: Props) {
     } finally {
       hasHydratedRef.current = true;
     }
-  }, [DEFAULT_KEY, ZONE_SETTINGS_KEY, applyStoredState]);
+  }, [DEFAULT_KEY, ZONE_SETTINGS_KEY, USER_SAVED_KEY, applyStoredState]);
 
   // Load saved marker positions (localStorage overrides shipped defaults)
   useEffect(() => {
@@ -377,9 +389,8 @@ export function ZoneMapCanvas(props: Props) {
     try {
       const raw = JSON.stringify(payload);
       localStorage.setItem(DEFAULT_KEY, raw);
-      // Also align current (per-zone) settings with the new defaults so the user
-      // sees the same thing after navigating away/back.
       localStorage.setItem(ZONE_SETTINGS_KEY, raw);
+      localStorage.setItem(USER_SAVED_KEY, "1");
       setLastStorageAction(`Saved defaults for ${props.zoneId}`);
       setStorageDebugTick((n) => n + 1);
     } catch {
@@ -406,6 +417,7 @@ export function ZoneMapCanvas(props: Props) {
     try {
       localStorage.setItem(GLOBAL_DEFAULT_KEY, raw);
       localStorage.setItem(GLOBAL_SETTINGS_KEY, raw);
+      localStorage.setItem(USER_SAVED_KEY, "1");
     } catch {
       // ignore
     }
@@ -443,6 +455,27 @@ export function ZoneMapCanvas(props: Props) {
       // ignore
     }
   };
+
+  const copyShippedDefaultsToClipboard = useCallback(() => {
+    const payload = { layers, tuning, mapOpacity, mapScale, markerPositions: {} };
+    const json = JSON.stringify(payload, null, 2);
+    navigator.clipboard.writeText(json).then(
+      () => setLastStorageAction("Copied — paste into lib/zoneMapDefaults.json to set first-time visitor defaults"),
+      () => setLastStorageAction("Clipboard copy failed"),
+    );
+  }, [layers, tuning, mapOpacity, mapScale]);
+
+  const copyMarkerPositionsToClipboard = useCallback(() => {
+    if (Object.keys(savedMarkerPositions).length === 0) {
+      setLastStorageAction("No marker positions to copy for this zone");
+      return;
+    }
+    const line = `  ${props.zoneId}: ${JSON.stringify(savedMarkerPositions, null, 2)},\n`;
+    navigator.clipboard.writeText(line).then(
+      () => setLastStorageAction(`Copied marker positions for ${props.zoneId} — add to SHIPPED_MARKER_POSITIONS`),
+      () => setLastStorageAction("Clipboard copy failed"),
+    );
+  }, [savedMarkerPositions, props.zoneId]);
 
   useEffect(() => {
     if (!hasHydratedRef.current) return;
@@ -576,22 +609,95 @@ export function ZoneMapCanvas(props: Props) {
       if (!start) return;
       const dx = e.clientX - start.x;
       const dy = e.clientY - start.y;
-      setPan((prev) => {
-        const next = clampPan(start.startPanX + dx, start.startPanY + dy);
-        return next;
-      });
+      setPan(() => clampPan(start.startPanX + dx, start.startPanY + dy));
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      const start = panStartRef.current;
+      if (!start) return;
+      e.preventDefault();
+      const dx = e.touches[0].clientX - start.x;
+      const dy = e.touches[0].clientY - start.y;
+      setPan(() => clampPan(start.startPanX + dx, start.startPanY + dy));
     };
     const onUp = () => {
       panStartRef.current = null;
       setIsPanning(false);
     };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length < 1) {
+        panStartRef.current = null;
+        setIsPanning(false);
+      }
+    };
     document.addEventListener("mousemove", onMove);
     document.addEventListener("mouseup", onUp);
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+    document.addEventListener("touchend", onTouchEnd);
+    document.addEventListener("touchcancel", onTouchEnd);
     return () => {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseup", onUp);
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", onTouchEnd);
+      document.removeEventListener("touchcancel", onTouchEnd);
     };
   }, [isPanning, clampPan]);
+
+  useEffect(() => {
+    if (!isPinching) return;
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length !== 2) return;
+      const pinch = touchPinchRef.current;
+      if (!pinch) return;
+      e.preventDefault();
+      const dist = touchDistance(e.touches);
+      if (dist === 0) return;
+      const scale = pinch.initialScale * (dist / pinch.initialDistance);
+      setMapScale((s) => clamp(scale, ZOOM_MIN, ZOOM_MAX));
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length < 2) {
+        touchPinchRef.current = null;
+        setIsPinching(false);
+      }
+    };
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+    document.addEventListener("touchend", onTouchEnd);
+    document.addEventListener("touchcancel", onTouchEnd);
+    return () => {
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", onTouchEnd);
+      document.removeEventListener("touchcancel", onTouchEnd);
+    };
+  }, [isPinching]);
+
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        touchPinchRef.current = {
+          initialDistance: touchDistance(e.touches),
+          initialScale: mapScale,
+        };
+        setIsPinching(true);
+        return;
+      }
+      if (e.touches.length === 1 && !touchPinchRef.current) {
+        if (mapScale <= 1) return;
+        if (editMode && draggingMarkerId) return;
+        e.preventDefault();
+        setIsPanning(true);
+        panStartRef.current = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          startPanX: pan.x,
+          startPanY: pan.y,
+        };
+      }
+    },
+    [mapScale, pan.x, pan.y, editMode, draggingMarkerId],
+  );
 
   // Keep pan in bounds when scale changes (e.g. zoom out)
   useEffect(() => {
@@ -610,14 +716,15 @@ export function ZoneMapCanvas(props: Props) {
           <div className="relative overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--bg-2)] shadow-[0_18px_60px_rgba(0,0,0,0.48)]">
             <div
               ref={mapContainerRef}
-              className="relative h-[62vh] min-h-[520px] w-full sm:h-[66vh] lg:h-[70vh]"
+              className="relative h-[62vh] min-h-[520px] w-full sm:h-[66vh] lg:h-[70vh] touch-none"
               style={{
                 aspectRatio: `${zone.aspect[0]} / ${zone.aspect[1]}`,
                 cursor: mapScale > 1 ? (isPanning ? "grabbing" : "grab") : "default",
               }}
               role="application"
-              aria-label="Zone map; scroll to zoom, drag to pan when zoomed in"
+              aria-label="Zone map; scroll or pinch to zoom, drag to pan when zoomed in"
               onMouseDown={handlePanStart}
+              onTouchStart={handleTouchStart}
             >
               <div
                 className="absolute inset-0"
@@ -1115,9 +1222,25 @@ export function ZoneMapCanvas(props: Props) {
                         >
                           APPLY TO ALL ZONES
                         </button>
+                        <button
+                          type="button"
+                          onClick={copyShippedDefaultsToClipboard}
+                          className="rounded-full border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_40%,transparent)] px-3 py-1 text-[10px] tracking-[0.22em] text-[color:var(--text-1)] hover:border-[color:var(--border-accent)]"
+                          title="Copy current layers, tuning, zoom, opacity as JSON to paste in lib/zoneMapDefaults.json"
+                        >
+                          COPY FOR NEW SESSIONS
+                        </button>
+                        <button
+                          type="button"
+                          onClick={copyMarkerPositionsToClipboard}
+                          className="rounded-full border border-[color:var(--border-subtle)] bg-[color:color-mix(in_oklab,var(--bg-1)_40%,transparent)] px-3 py-1 text-[10px] tracking-[0.22em] text-[color:var(--text-1)] hover:border-[color:var(--border-accent)]"
+                          title="Copy this zone's marker positions to paste into SHIPPED_MARKER_POSITIONS"
+                        >
+                          COPY POSITIONS ({props.zoneId})
+                        </button>
                       </div>
                       <div className="text-[10px] leading-relaxed text-[color:var(--text-2)]">
-                        Defaults apply when you clear settings or reset. Global defaults can seed new zones.
+                        Defaults apply when you clear settings or reset. Global defaults can seed new zones. Use <strong>COPY FOR NEW SESSIONS</strong> and paste into <code className="rounded bg-[color:var(--bg-1)] px-1">lib/zoneMapDefaults.json</code> to set these as the defaults for everyone opening the page for the first time.
                       </div>
                       {lastStorageAction ? (
                         <div className="mt-2 text-[10px] leading-relaxed text-[color:color-mix(in_oklab,var(--accent-gold)_70%,var(--text-2))]">
